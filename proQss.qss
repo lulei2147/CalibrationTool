@@ -1,0 +1,15 @@
+*{
+
+}
+
+#btn_portstatus{
+    border-radius: 10px;
+    background-color: gray;
+    border: 2px solid white;
+}
+
+QPlainTextEdit{
+    background-color: black;
+    color: #ff5533;
+    font-size: 15px;
+}
