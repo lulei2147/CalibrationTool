@@ -39,6 +39,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         super(MainUI, self).__init__()
         self.setupUi(self)
         self.CmdId = {'GetParam': 'A0', 'SetParam': 'A1', 'GetADCVal': 'A5'}
+        self.RevData = {'CmdHeader': '', 'CmdData': ''}
         QssTools.setQssToObj('./proQss.qss', self)
 
         self.portconfig = PortConfigUI()
@@ -50,40 +51,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.pte_InfoOutput.textChanged.connect(self.pte_InfoOutput.ensureCursorVisible)
 
         # USART data buffer from MCU
-        self.dataBuffer = []
+        self.dataBuffer = b''
 
-        self.drawTableWidgetParamItem()
-
-        self.bytesNum = 0
-
-    def drawTableWidgetParamItem(self):
-        # add checkbox to tablewidget
-        self.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
-
-        self.chkBox1 = QCheckBox()
-        hLayout1 = QHBoxLayout()
-        hLayout1.addWidget(self.chkBox1)
-        hLayout1.setAlignment(self.chkBox1, Qt.AlignCenter)
-        widget1 = QWidget()
-        widget1.setLayout(hLayout1)
-        self.tableWidget.setCellWidget(0, 0, widget1)
-
-        self.chkBox2 = QCheckBox()
-        hLayout2 = QHBoxLayout()
-        hLayout2.addWidget(self.chkBox2)
-        hLayout2.setAlignment(self.chkBox2, Qt.AlignCenter)
-        widget2 = QWidget()
-        widget2.setLayout(hLayout2)
-        self.tableWidget.setCellWidget(1, 0, widget2)
-
-        # self.chkBox3 = QCheckBox()
-        # hLayout3 = QHBoxLayout()
-        # hLayout3.addWidget(self.chkBox3)
-        # hLayout3.setAlignment(self.chkBox3, Qt.AlignCenter)
-        # widget3 = QWidget()
-        # widget3.setLayout(hLayout3)
-        # self.tableWidget.setCellWidget(2, 0, widget3)
+        self.drawCheckBoxInTableWidget()
 
     def btnPortConfigClicked(self):
         selected = self.portconfig.exec()
@@ -112,22 +82,30 @@ class MainUI(QMainWindow, Ui_MainWindow):
 
     def portReceiveData(self):
         try:
-            #rxData = (bytes(self.port.readAll())).decode('UTF-8')
-            #self.pte_InfoOutput.insertPlainText(rxData)
-
             rxData = binascii.b2a_hex(bytes(self.port.readAll()))
-            self.dataBuffer.append(rxData)
+            #rxData = bytes(self.port.readAll())
+            self.dataBuffer = self.dataBuffer + rxData
+            #print(self.dataBuffer)
+
+            if len(self.dataBuffer) >= 2:
+                # Wait for the data reception to complete, the byte stream ends with ‘\r\n’
+                if self.dataBuffer[-2:] == b'0a' and self.dataBuffer[-4:-2] == b'0d':
+                    self.RevData['CmdHeader'] = self.dataBuffer[0:2]
+                    self.RevData['CmdData'] = self.dataBuffer[2:-4]
+                    self.dataBuffer = b''
+
+                    self.cmdHandler()
         except:
             pass
             # QMessageBox.critical(self, "错误", "串口接收数据错误！")
 
-        if len(self.dataBuffer) >= 2:
-            # Wait for the data reception to complete, the byte stream ends with ‘\r\n’
-            if self.dataBuffer[-1] == b'0a' and self.dataBuffer[-2] == b'0d':
-                print(self.dataBuffer)
-                self.dataBuffer.clear()
-
-
+    def cmdHandler(self):
+        # Load 'upper limit' and 'lower limit' data from MCU
+        if self.RevData['CmdHeader'] == b'a0':
+            upperLimit = float(int((binascii.a2b_hex(self.RevData['CmdData'][0:2])).hex(), 16)) / 10
+            lowerLimit = float(int((binascii.a2b_hex(self.RevData['CmdData'][2:4])).hex(), 16)) / 10
+            self.tableWidget.item(0, 2).setText(str(upperLimit))
+            self.tableWidget.item(1, 2).setText(str(lowerLimit))
 
     def btnGetADCValue(self):
         try:
@@ -149,6 +127,34 @@ class MainUI(QMainWindow, Ui_MainWindow):
         else:
             self.btn_portConfig.setEnabled()
 
+    def drawCheckBoxInTableWidget(self):
+        # add checkbox to tablewidget
+        self.tableWidget.verticalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+        self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
+
+        self.chkBox_lowerlimit = QCheckBox()
+        hLayout1 = QHBoxLayout()
+        hLayout1.addWidget(self.chkBox_lowerlimit)
+        hLayout1.setAlignment(self.chkBox_lowerlimit, Qt.AlignCenter)
+        widget1 = QWidget()
+        widget1.setLayout(hLayout1)
+        self.tableWidget.setCellWidget(0, 0, widget1)
+
+        self.chkBox_upperlimit = QCheckBox()
+        hLayout2 = QHBoxLayout()
+        hLayout2.addWidget(self.chkBox_upperlimit)
+        hLayout2.setAlignment(self.chkBox_upperlimit, Qt.AlignCenter)
+        widget2 = QWidget()
+        widget2.setLayout(hLayout2)
+        self.tableWidget.setCellWidget(1, 0, widget2)
+
+        # self.chkBox3 = QCheckBox()
+        # hLayout3 = QHBoxLayout()
+        # hLayout3.addWidget(self.chkBox3)
+        # hLayout3.setAlignment(self.chkBox3, Qt.AlignCenter)
+        # widget3 = QWidget()
+        # widget3.setLayout(hLayout3)
+        # self.tableWidget.setCellWidget(2, 0, widget3)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

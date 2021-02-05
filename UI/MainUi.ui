@@ -150,20 +150,32 @@
              <property name="text">
               <string>    选择    </string>
              </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
             </column>
             <column>
              <property name="text">
               <string>        参数名称        </string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
              </property>
             </column>
             <column>
              <property name="text">
               <string>        参数值        </string>
              </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
             </column>
             <column>
              <property name="text">
               <string>    参数说明    </string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
              </property>
             </column>
             <item row="0" column="0">
@@ -185,6 +197,14 @@
               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsEnabled</set>
              </property>
             </item>
+            <item row="0" column="2">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
             <item row="0" column="3">
              <property name="text">
               <string/>
@@ -204,6 +224,14 @@
               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsEnabled</set>
              </property>
             </item>
+            <item row="1" column="2">
+             <property name="text">
+              <string/>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
             <item row="1" column="3">
              <property name="text">
               <string/>
@@ -218,6 +246,31 @@
              </property>
              <property name="flags">
               <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+             </property>
+            </item>
+            <item row="2" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="3" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="4" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="5" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="6" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
              </property>
             </item>
            </widget>
