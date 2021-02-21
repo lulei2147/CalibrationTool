@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>710</width>
-    <height>588</height>
+    <width>612</width>
+    <height>724</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="6,3">
+     <layout class="QVBoxLayout" name="verticalLayout_2" stretch="8,3">
       <item>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
@@ -99,10 +99,10 @@
            <widget class="QTableWidget" name="tableWidget">
             <property name="geometry">
              <rect>
-              <x>9</x>
-              <y>9</y>
-              <width>521</width>
-              <height>261</height>
+              <x>10</x>
+              <y>10</y>
+              <width>431</width>
+              <height>381</height>
              </rect>
             </property>
             <property name="verticalScrollBarPolicy">
@@ -154,6 +154,31 @@
             <row>
              <property name="text">
               <string>9</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>10</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>11</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>12</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>13</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>14</string>
              </property>
             </row>
             <column>
@@ -326,6 +351,14 @@
               <set>AlignCenter</set>
              </property>
             </item>
+            <item row="6" column="1">
+             <property name="text">
+              <string>Func1</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
             <item row="6" column="2">
              <property name="text">
               <string/>
@@ -334,45 +367,171 @@
               <set>AlignCenter</set>
              </property>
             </item>
+            <item row="7" column="1">
+             <property name="text">
+              <string>AL1</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="7" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="8" column="1">
+             <property name="text">
+              <string>AH1</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="8" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="9" column="1">
+             <property name="text">
+              <string>DL1</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="9" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="10" column="1">
+             <property name="text">
+              <string>Func2</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="10" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="11" column="1">
+             <property name="text">
+              <string>AL2</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="11" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="12" column="1">
+             <property name="text">
+              <string>AH2</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="12" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="13" column="1">
+             <property name="text">
+              <string>DL2</string>
+             </property>
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
+            <item row="13" column="2">
+             <property name="textAlignment">
+              <set>AlignCenter</set>
+             </property>
+            </item>
            </widget>
-           <widget class="QPushButton" name="btn_get_adc">
+           <widget class="QWidget" name="">
             <property name="geometry">
              <rect>
-              <x>560</x>
-              <y>150</y>
-              <width>75</width>
-              <height>23</height>
+              <x>450</x>
+              <y>20</y>
+              <width>99</width>
+              <height>233</height>
              </rect>
             </property>
-            <property name="text">
-             <string>ADC</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="btn_queryParam">
-            <property name="geometry">
-             <rect>
-              <x>560</x>
-              <y>60</y>
-              <width>75</width>
-              <height>23</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>查询参数</string>
-            </property>
-           </widget>
-           <widget class="QPushButton" name="btn_setParam">
-            <property name="geometry">
-             <rect>
-              <x>570</x>
-              <y>100</y>
-              <width>75</width>
-              <height>23</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>设置参数</string>
-            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QPushButton" name="btn_queryParam">
+               <property name="text">
+                <string>查询参数</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_setParam">
+               <property name="text">
+                <string>设置参数</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_get_adc">
+               <property name="text">
+                <string>ADC</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="title">
+                <string>按键</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_2">
+                <item row="0" column="0">
+                 <layout class="QVBoxLayout" name="verticalLayout_3">
+                  <item>
+                   <widget class="QPushButton" name="btn_keyUp">
+                    <property name="text">
+                     <string>UP</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_keyDown">
+                    <property name="text">
+                     <string>DOWN</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_keyM">
+                    <property name="text">
+                     <string>M</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="btn_keyS">
+                    <property name="text">
+                     <string>S</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </widget>
           <widget class="QWidget" name="tab_2">
@@ -473,7 +632,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>87</x>
-     <y>-1</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -484,8 +643,8 @@
    <slot>btnQueryParametersClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>495</x>
-     <y>133</y>
+     <x>494</x>
+     <y>176</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
@@ -500,12 +659,76 @@
    <slot>btnSetParametersClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>510</x>
-     <y>172</y>
+     <x>514</x>
+     <y>205</y>
     </hint>
     <hint type="destinationlabel">
      <x>582</x>
      <y>190</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_keyUp</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>btnKeyClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>565</x>
+     <y>277</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>627</x>
+     <y>283</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_keyDown</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>btnKeyClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>304</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_keyM</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>btnKeyClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>333</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>361</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_keyS</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>btnKeyClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>542</x>
+     <y>362</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>317</x>
+     <y>361</y>
     </hint>
    </hints>
   </connection>
@@ -518,5 +741,6 @@
   <slot>btnPortConfigClicked()</slot>
   <slot>btnQueryParametersClicked()</slot>
   <slot>btnSetParametersClicked()</slot>
+  <slot>btnKeyClicked()</slot>
  </slots>
 </ui>
