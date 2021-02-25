@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(759, 587)
+        MainWindow.resize(693, 587)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -59,7 +59,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.tableWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
         self.tableWidget.setGridStyle(QtCore.Qt.CustomDashLine)
-        self.tableWidget.setWordWrap(True)
+        self.tableWidget.setWordWrap(False)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(4)
         self.tableWidget.setRowCount(14)
@@ -238,9 +238,10 @@ class Ui_MainWindow(object):
         item = QtWidgets.QTableWidgetItem()
         item.setFlags(QtCore.Qt.ItemIsSelectable|QtCore.Qt.ItemIsDragEnabled|QtCore.Qt.ItemIsDropEnabled|QtCore.Qt.ItemIsUserCheckable|QtCore.Qt.ItemIsEnabled)
         self.tableWidget.setItem(13, 3, item)
-        self.tableWidget.horizontalHeader().setCascadingSectionResizes(False)
+        self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidget.horizontalHeader().setSortIndicatorShown(False)
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
+        self.tableWidget.verticalHeader().setStretchLastSection(False)
         self.horizontalLayout.addWidget(self.tableWidget)
         self.widget = QtWidgets.QWidget(self.tab)
         self.widget.setObjectName("widget")
@@ -319,6 +320,7 @@ class Ui_MainWindow(object):
         self.btn_keyDown.clicked.connect(MainWindow.btnKeyClicked)
         self.btn_keyM.clicked.connect(MainWindow.btnKeyClicked)
         self.btn_keyS.clicked.connect(MainWindow.btnKeyClicked)
+        self.tableWidget.itemChanged['QTableWidgetItem*'].connect(MainWindow.tabWidgetIParamItemChanged)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
