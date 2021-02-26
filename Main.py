@@ -43,13 +43,34 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.CmdId = {'GetParam': 'A0', 'SetParam': 'A1', 'GetADCVal': 'A5', 'KeyMessage': 'A6', 'RestoreFactory': 'A7'}
         self.RevData = {'CmdHeader': '', 'CmdData': ''}
-        self.RevDataLoadPara_A0 = {'LowLimit': '', 'LowLimit_Decimal': '', 'UpperLimit': '', 'UpperLimit_Decimal': '',
-                                   'Unit': '', 'DAP': '', 'P-L': '', 'P-L_Decimal': '', 'P-H': '', 'P-H_Decimal': '',
-                                   'Func1': '', 'AL1': '', 'AL1_Decimal': '', 'AH1': '', 'AH1_Decimal': '', 'DL1': '', 'DL1_Decimal': '',
-                                   'Func2': '', 'AL2': '', 'AL2_Decimal': '', 'AH2': '', 'AH2_Decimal': '', 'DL2': '', 'DL2_Decimal': ''}
-        self.SendDataSetPara_A1 = {'LowLimit': None, 'UpperLimit': None, 'Unit': None, 'DAP': None,
-                                   'P-L': None, 'P-H': None, 'Func1': None, 'AL1': None, 'AH1': None, 'DL1': None,
-                                   'Func2': None, 'AL2': None, 'AH2': None, 'DL2': None}
+        self.RevDataLoadPara_A0 = {'LowLimit': {'value': None, 'decimal': None},
+                                   'UpperLimit': {'value': None, 'decimal': None},
+                                   'Unit': {'value': None},
+                                   'DAP': {'value': None},
+                                   'P-L': {'value': None, 'decimal': None},
+                                   'P-H': {'value': None, 'decimal': None},
+                                   'Func1': {'value': None},
+                                   'AL1': {'value': None, 'decimal': None},
+                                   'AH1': {'value': None, 'decimal': None},
+                                   'DL1': {'value': None, 'decimal': None},
+                                   'Func2': {'value': None},
+                                   'AL2': {'value': None, 'decimal': None},
+                                   'AH2': {'value': None, 'decimal': None},
+                                   'DL2': {'value': None, 'decimal': None}}
+        self.SendDataSetPara_A1 = {'LowLimit': {'value': None, 'decimal': None},
+                                   'UpperLimit': {'value': None, 'decimal': None},
+                                   'Unit': {'value': None},
+                                   'DAP': {'value': None},
+                                   'P-L': {'value': None, 'decimal': None},
+                                   'P-H': {'value': None, 'decimal': None},
+                                   'Func1': {'value': None},
+                                   'AL1': {'value': None, 'decimal': None},
+                                   'AH1': {'value': None, 'decimal': None},
+                                   'DL1': {'value': None, 'decimal': None},
+                                   'Func2': {'value': None},
+                                   'AL2': {'value': None, 'decimal': None},
+                                   'AH2': {'value': None, 'decimal': None},
+                                   'DL2': {'value': None, 'decimal': None}}
         QssTools.setQssToObj('./proQss.qss', self)
 
         self.portconfig = PortConfigUI()
@@ -165,27 +186,49 @@ class MainUI(QMainWindow, Ui_MainWindow):
         itemRow = item.row()
         text = item.text()
         if itemRow == MainUI.LowLimitPos:
-            self.SendDataSetPara_A1['LowLimit'] = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.UpperLimitPos:
-            self.SendDataSetPara_A1['UpperLimit'] = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
+        elif itemRow == MainUI.UnitPos:
+            pass
         elif itemRow == MainUI.DAPPos:
-            self.SendDataSetPara_A1['DAP'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DAP']['value'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
         elif itemRow == MainUI.PLPos:
-            self.SendDataSetPara_A1['P-L'] = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.PHPos:
-            self.SendDataSetPara_A1['P-H'] = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AL1Pos:
-            self.SendDataSetPara_A1['AL1'] = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AH1Pos:
-            self.SendDataSetPara_A1['AH1'] = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.DL1Pos:
-            self.SendDataSetPara_A1['DL1'] = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AL2Pos:
-            self.SendDataSetPara_A1['AL2'] = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AH2Pos:
-            self.SendDataSetPara_A1['AH2'] = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.DL2Pos:
-            self.SendDataSetPara_A1['DL2'] = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
         print(self.SendDataSetPara_A1)
 
     def setTextToTabWidget(self, row, col, str):
@@ -207,55 +250,55 @@ class MainUI(QMainWindow, Ui_MainWindow):
 
                     valLen = len(str(val))
                     if valLen == 1: # X
-                        return [val * 1000, 3]
+                        return {'value': int(val * 1000), 'decimal': 3}
                     elif valLen == 2: # XX
-                        return [val * 100, 2]
+                        return {'value': int(val * 100), 'decimal': 2}
                     elif valLen == 3: # XXX
-                        return [val * 10, 1]
+                        return {'value': int(val * 10), 'decimal': 1}
                     elif valLen == 4: # XXXX
-                        return [val, 0]
+                        return {'value': int(val), 'decimal': 0}
                     else:
                         pass
                 # X.X, X.XX, X.XXX, 0.X, 0.XX, 0.XXX
                 elif re.match(r'^\d\.[0-9]$', strVal) != None or re.match(r'^\d\.[0-9]{2}$', strVal) != None or re.match(r'^\d\.[0-9]{3}$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 1000), 3]
+                    return {'value': int(val * 1000), 'decimal': 3}
                 # XX.X, XX.XX
                 elif re.match(r'^[1-9][0-9]\.[0-9]$', strVal) != None or re.match(r'^[1-9][0-9]\.[0-9]{2}$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 100), 2]
+                    return {'value': int(val * 100), 'decimal': 2}
                 # XXX.X
                 elif re.match(r'^[1-9][0-9]{2}\.[0-9]$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 10), 1]
+                    return {'value': int(val * 10), 'decimal': 1}
                 # 00.X, 00.XX
                 elif re.match(r'^0{2}\.[0-9]$', strVal) != None or re.match(r'^0{2}\.[0-9]{2}$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 1000), 3]
+                    return {'value': int(val * 1000), 'decimal': 3}
                 # 000.X
                 elif re.match(r'^0{3}\.[0-9]$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 1000), 3]
+                    return {'value': int(val * 1000), 'decimal': 3}
                 # 0X.X, 0X.XX
                 elif re.match(r'^0[1-9]\.[0-9]$', strVal) != None or re.match(r'^0[1-9]\.[0-9]{2}$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 1000), 3]
+                    return {'value': int(val * 1000), 'decimal': 3}
                 # 00X.X
                 elif re.match(r'^0{2}[1-9]\.[0-9]$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 1000), 3]
+                    return {'value': int(val * 1000), 'decimal': 3}
                 # 0XX.X
                 elif re.match(r'^0[1-9][0-9]\.[0-9]$', strVal) != None:
                     val = float(strVal)
                     self.setTextToTabWidget(row, col, str(val))
-                    return [int(val * 100), 2]
+                    return {'value': int(val * 100), 'decimal': 2}
                 else:
                     self.setTextToTabWidget(row, col, '#Invalid')
                     self.pte_InfoOutput.insertPlainText('无效参数！参数范围：[0,9999] 或者 [0.0,999.9]' + '\n')
@@ -306,30 +349,30 @@ class MainUI(QMainWindow, Ui_MainWindow):
                     self.RevData['CmdData'] = self.dataBuffer[2:-4]
                     self.dataBuffer = b''
 
-                    self.RevDataLoadPara_A0['LowLimit'] = self.RevData['CmdData'][self.LowerLimitIndexStart:self.LowerLimitIndexEnd]
-                    self.RevDataLoadPara_A0['LowLimit_Decimal'] = self.RevData['CmdData'][self.LowerLimitDecimalIndexStart:self.LowerLimitDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['UpperLimit'] = self.RevData['CmdData'][self.UpperLimitIndexStart:self.UpperLimitIndexEnd]
-                    self.RevDataLoadPara_A0['UpperLimit_Decimal'] = self.RevData['CmdData'][self.UpperLimitDecimalIndexStart:self.UpperLimitDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['Unit'] = self.RevData['CmdData'][self.UnitIndexStart:self.UnitIndexEnd]
-                    self.RevDataLoadPara_A0['DAP'] = self.RevData['CmdData'][self.DAPIndexStart:self.DAPIndexEnd]
-                    self.RevDataLoadPara_A0['P-L'] = self.RevData['CmdData'][self.PLIndexStart:self.PLIndexEnd]
-                    self.RevDataLoadPara_A0['P-L_Decimal'] = self.RevData['CmdData'][self.PLDecimalIndexStart:self.PLDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['P-H'] = self.RevData['CmdData'][self.PHIndexStart:self.PHIndexEnd]
-                    self.RevDataLoadPara_A0['P-H_Decimal'] = self.RevData['CmdData'][self.PHDecimalIndexStart:self.PHDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['Func1'] = self.RevData['CmdData'][self.Func1IndexStart:self.Func1IndexEnd]
-                    self.RevDataLoadPara_A0['AL1'] = self.RevData['CmdData'][self.AL1IndexStart:self.AL1IndexEnd]
-                    self.RevDataLoadPara_A0['AL1_Decimal'] = self.RevData['CmdData'][self.AL1DecimalIndexStart:self.AL1DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['AH1'] = self.RevData['CmdData'][self.AH1IndexStart:self.AH1IndexEnd]
-                    self.RevDataLoadPara_A0['AH1_Decimal'] = self.RevData['CmdData'][self.AH1DecimalIndexStart:self.AH1DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['DL1'] = self.RevData['CmdData'][self.DL1IndexStart:self.DL1IndexEnd]
-                    self.RevDataLoadPara_A0['DL1_Decimal'] = self.RevData['CmdData'][self.DL1DecimalIndexStart:self.DL1DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['Func2'] = self.RevData['CmdData'][self.Func2IndexStart:self.Func2IndexEnd]
-                    self.RevDataLoadPara_A0['AL2'] = self.RevData['CmdData'][self.AL2IndexStart:self.AL2IndexEnd]
-                    self.RevDataLoadPara_A0['AL2_Decimal'] = self.RevData['CmdData'][self.AL2DecimalIndexStart:self.AL2DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['AH2'] = self.RevData['CmdData'][self.AH2IndexStart:self.AH2IndexEnd]
-                    self.RevDataLoadPara_A0['AH2_Decimal'] = self.RevData['CmdData'][self.AH2DecimalIndexStart:self.AH2DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['DL2'] = self.RevData['CmdData'][self.DL2IndexStart:self.DL2IndexEnd]
-                    self.RevDataLoadPara_A0['DL2_Decimal'] = self.RevData['CmdData'][self.DL2DecimalIndexStart:self.DL2DecimalIndexEnd]
+                    self.RevDataLoadPara_A0['LowLimit']['value'] = self.RevData['CmdData'][self.LowerLimitIndexStart:self.LowerLimitIndexEnd]
+                    self.RevDataLoadPara_A0['LowLimit'] ['decimal']= self.RevData['CmdData'][self.LowerLimitDecimalIndexStart:self.LowerLimitDecimalIndexEnd]
+                    self.RevDataLoadPara_A0['UpperLimit']['value'] = self.RevData['CmdData'][self.UpperLimitIndexStart:self.UpperLimitIndexEnd]
+                    self.RevDataLoadPara_A0['UpperLimit']['decimal'] = self.RevData['CmdData'][self.UpperLimitDecimalIndexStart:self.UpperLimitDecimalIndexEnd]
+                    self.RevDataLoadPara_A0['Unit']['value'] = self.RevData['CmdData'][self.UnitIndexStart:self.UnitIndexEnd]
+                    self.RevDataLoadPara_A0['DAP']['value'] = self.RevData['CmdData'][self.DAPIndexStart:self.DAPIndexEnd]
+                    self.RevDataLoadPara_A0['P-L']['value'] = self.RevData['CmdData'][self.PLIndexStart:self.PLIndexEnd]
+                    self.RevDataLoadPara_A0['P-L']['decimal'] = self.RevData['CmdData'][self.PLDecimalIndexStart:self.PLDecimalIndexEnd]
+                    self.RevDataLoadPara_A0['P-H']['value'] = self.RevData['CmdData'][self.PHIndexStart:self.PHIndexEnd]
+                    self.RevDataLoadPara_A0['P-H']['decimal'] = self.RevData['CmdData'][self.PHDecimalIndexStart:self.PHDecimalIndexEnd]
+                    self.RevDataLoadPara_A0['Func1']['value'] = self.RevData['CmdData'][self.Func1IndexStart:self.Func1IndexEnd]
+                    self.RevDataLoadPara_A0['AL1']['value'] = self.RevData['CmdData'][self.AL1IndexStart:self.AL1IndexEnd]
+                    self.RevDataLoadPara_A0['AL1']['decimal'] = self.RevData['CmdData'][self.AL1DecimalIndexStart:self.AL1DecimalIndexEnd]
+                    self.RevDataLoadPara_A0['AH1']['value'] = self.RevData['CmdData'][self.AH1IndexStart:self.AH1IndexEnd]
+                    self.RevDataLoadPara_A0['AH1']['decimal'] = self.RevData['CmdData'][self.AH1DecimalIndexStart:self.AH1DecimalIndexEnd]
+                    self.RevDataLoadPara_A0['DL1']['value'] = self.RevData['CmdData'][self.DL1IndexStart:self.DL1IndexEnd]
+                    self.RevDataLoadPara_A0['DL1']['decimal'] = self.RevData['CmdData'][self.DL1DecimalIndexStart:self.DL1DecimalIndexEnd]
+                    self.RevDataLoadPara_A0['Func2']['value'] = self.RevData['CmdData'][self.Func2IndexStart:self.Func2IndexEnd]
+                    self.RevDataLoadPara_A0['AL2']['value'] = self.RevData['CmdData'][self.AL2IndexStart:self.AL2IndexEnd]
+                    self.RevDataLoadPara_A0['AL2']['decimal'] = self.RevData['CmdData'][self.AL2DecimalIndexStart:self.AL2DecimalIndexEnd]
+                    self.RevDataLoadPara_A0['AH2']['value'] = self.RevData['CmdData'][self.AH2IndexStart:self.AH2IndexEnd]
+                    self.RevDataLoadPara_A0['AH2']['decimal'] = self.RevData['CmdData'][self.AH2DecimalIndexStart:self.AH2DecimalIndexEnd]
+                    self.RevDataLoadPara_A0['DL2']['value'] = self.RevData['CmdData'][self.DL2IndexStart:self.DL2IndexEnd]
+                    self.RevDataLoadPara_A0['DL2']['decimal'] = self.RevData['CmdData'][self.DL2DecimalIndexStart:self.DL2DecimalIndexEnd]
 
                     self.cmdHandler()
         except:
@@ -342,8 +385,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
             text = ''
 
             # lower limit
-            lowerLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['LowLimit'])[::-1])
-            lowerLimitDecimal = self.RevDataLoadPara_A0['LowLimit_Decimal']
+            lowerLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['LowLimit']['value'])[::-1])
+            lowerLimitDecimal = self.RevDataLoadPara_A0['LowLimit']['decimal']
             if lowerLimitDecimal == b'00':
                 text = format(int(lowerLimit, 16), '.0f')
             elif lowerLimitDecimal == b'01':
@@ -354,11 +397,14 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = format(float(int(lowerLimit, 16)) / pow(10, 3), '.3f')
             else:
                 text = '#Invalid'
-            self.SendDataSetPara_A1['LowLimit'] = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
+            # assign value to the buffer to be sent
+            dicVal = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
 
             # upper limit
-            upperLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['UpperLimit'])[::-1])
-            upperLimitDecimal = self.RevDataLoadPara_A0['UpperLimit_Decimal']
+            upperLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['UpperLimit']['value'])[::-1])
+            upperLimitDecimal = self.RevDataLoadPara_A0['UpperLimit']['decimal']
             if upperLimitDecimal == b'00':
                 text = format(int(upperLimit, 16), '.0f')
             elif upperLimitDecimal == b'01':
@@ -369,29 +415,32 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = format(float(int(upperLimit, 16)) / pow(10, 3), '.3f')
             else:
                 text = '#Invalid'
-            self.SendDataSetPara_A1['UpperLimit'] = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
+            # assign value to the buffer to be sent
+            dicVal = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
 
             # unit
             # b'00':PSI, b'01':BAR
-            unit = self.RevDataLoadPara_A0['Unit']
+            unit = self.RevDataLoadPara_A0['Unit']['value']
             if unit == b'01':
                 text = 'Bar'
             elif unit == b'00':
                 text = 'Psi'
             else:
-                self.SendDataSetPara_A1['Unit'] = None
+                self.SendDataSetPara_A1['Unit']['value'] = None
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['Unit'] = self.updateAndDispValue(text, MainUI.UnitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['Unit']['value'] = self.updateAndDispValue(text, MainUI.UnitPos, MainUI.ParamColNum)
 
             # DAP
-            dap = self.RevDataLoadPara_A0['DAP']
+            dap = self.RevDataLoadPara_A0['DAP']['value']
             text = str(int(dap, 16))
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['DAP'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DAP']['value'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
 
             # P-L
-            PLVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-L'])[::-1])
-            PLDecimal = self.RevDataLoadPara_A0['P-L_Decimal']
+            PLVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-L']['value'])[::-1])
+            PLDecimal = self.RevDataLoadPara_A0['P-L']['decimal']
             if PLDecimal == b'00':
                 text = format(int(PLVal, 16), '.0f')
             elif PLDecimal == b'01':
@@ -403,11 +452,13 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['P-L'] = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
 
             # P-H
-            PHVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-H'])[::-1])
-            PHDecimal = self.RevDataLoadPara_A0['P-H_Decimal']
+            PHVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-H']['value'])[::-1])
+            PHDecimal = self.RevDataLoadPara_A0['P-H']['decimal']
             if PHDecimal == b'00':
                 text = format(int(PHVal, 16), '.0f')
             elif PHDecimal == b'01':
@@ -417,10 +468,12 @@ class MainUI(QMainWindow, Ui_MainWindow):
             elif PHDecimal == b'03':
                 text = format(float(int(PHVal, 16)) / pow(10, 3), '.3f')
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['P-H'] = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
 
             # Func1
-            Func1Val = self.RevDataLoadPara_A0['Func1']
+            Func1Val = self.RevDataLoadPara_A0['Func1']['value']
             if Func1Val == b'00':
                 text = 'LO'
             elif Func1Val == b'01':
@@ -432,11 +485,11 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['Func1'] = self.updateAndDispValue(text, MainUI.Func1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['Func1']['value'] = self.updateAndDispValue(text, MainUI.Func1Pos, MainUI.ParamColNum)
 
             # AL1
-            AL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL1'])[::-1])
-            AL1Decimal = self.RevDataLoadPara_A0['AL1_Decimal']
+            AL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL1']['value'])[::-1])
+            AL1Decimal = self.RevDataLoadPara_A0['AL1']['decimal']
             if AL1Decimal == b'00':
                 text = format(int(AL1Val, 16), '.0f')
             elif AL1Decimal == b'01':
@@ -446,11 +499,13 @@ class MainUI(QMainWindow, Ui_MainWindow):
             elif AL1Decimal == b'03':
                 text = format(float(int(AL1Val, 16)) / pow(10, 3), '.3f')
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['AL1'] = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
 
             # AH1
-            AH1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH1'])[::-1])
-            AH1Decimal = self.RevDataLoadPara_A0['AH1_Decimal']
+            AH1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH1']['value'])[::-1])
+            AH1Decimal = self.RevDataLoadPara_A0['AH1']['decimal']
             if AH1Decimal == b'00':
                 text = format(int(AH1Val, 16), '.0f')
             elif AH1Decimal == b'01':
@@ -462,11 +517,13 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['AH1'] = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
 
             # DL1
-            DL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL1'])[::-1])
-            DL1Decimal = self.RevDataLoadPara_A0['DL1_Decimal']
+            DL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL1']['value'])[::-1])
+            DL1Decimal = self.RevDataLoadPara_A0['DL1']['decimal']
             if DL1Decimal == b'00':
                 text = format(int(DL1Val, 16), '.0f')
             elif DL1Decimal == b'01':
@@ -478,10 +535,12 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['DL1'] = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
 
             # Func2
-            Func2Val = self.RevDataLoadPara_A0['Func2']
+            Func2Val = self.RevDataLoadPara_A0['Func2']['value']
             if Func2Val == b'00':
                 text = 'LO'
             elif Func2Val == b'01':
@@ -493,11 +552,11 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['Func2'] = self.updateAndDispValue(text, MainUI.Func2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['Func2']['value'] = self.updateAndDispValue(text, MainUI.Func2Pos, MainUI.ParamColNum)
 
             # AL2
-            AL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL2'])[::-1])
-            AL2Decimal = self.RevDataLoadPara_A0['AL2_Decimal']
+            AL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL2']['value'])[::-1])
+            AL2Decimal = self.RevDataLoadPara_A0['AL2']['decimal']
             if AL2Decimal == b'00':
                 text = format(int(AL2Val, 16), '.0f')
             elif AL2Decimal == b'01':
@@ -509,11 +568,13 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['AL2'] = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
 
             # AH2
-            AH2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH2'])[::-1])
-            AH2Decimal = self.RevDataLoadPara_A0['AH2_Decimal']
+            AH2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH2']['value'])[::-1])
+            AH2Decimal = self.RevDataLoadPara_A0['AH2']['decimal']
             if AH2Decimal == b'00':
                 text = format(int(AL2Val, 16), '.0f')
             elif AH2Decimal == b'01':
@@ -523,11 +584,13 @@ class MainUI(QMainWindow, Ui_MainWindow):
             elif AH2Decimal == b'03':
                 text = format(float(int(AH2Val, 16)) / pow(10, 3), '.3f')
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['AH2'] = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
 
             # DL2
-            DL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL2'])[::-1])
-            DL2Decimal = self.RevDataLoadPara_A0['DL2_Decimal']
+            DL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL2']['value'])[::-1])
+            DL2Decimal = self.RevDataLoadPara_A0['DL2']['decimal']
             if DL2Decimal == b'00':
                 text = format(int(DL2Val, 16), '.0f')
             elif DL2Decimal == b'01':
@@ -539,7 +602,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['DL2'] = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
+            self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
 
             # parameter description
             self.setTextToTabWidget(MainUI.LowLimitPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
@@ -572,69 +637,69 @@ class MainUI(QMainWindow, Ui_MainWindow):
         # bit0, lower limit
         if self.chkBox_lowerlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 0)
-            setVal = setVal + (self.SendDataSetPara_A1['LowLimit'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['LowLimit'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big')
         # bit1, upper limit
         if self.chkBox_upperlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 1)
-            setVal = setVal + (self.SendDataSetPara_A1['UpperLimit'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['UpperLimit'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big')
         # bit2, unit
         if self.chkBox_Unit.isChecked():
             bitMapLow = bitMapLow | (1 << 2)
-            setVal = setVal + self.SendDataSetPara_A1['Unit'].to_bytes(1, byteorder='big')
+            setVal = setVal + self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big')
         # bit3, DAP
         if self.chkBox_DAP.isChecked():
             bitMapLow = bitMapLow | (1 << 3)
-            setVal = setVal + self.SendDataSetPara_A1['DAP'].to_bytes(1, byteorder='big')
+            setVal = setVal + self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big')
         # bit4, P-L
         if self.chkBox_PL.isChecked():
             bitMapLow = bitMapLow | (1 << 4)
-            setVal = setVal + (self.SendDataSetPara_A1['P-L'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['P-L'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big')
         # bit5, P-H
         if self.chkBox_PH.isChecked():
             bitMapLow = bitMapLow | (1 << 5)
-            setVal = setVal + (self.SendDataSetPara_A1['P-H'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['P-H'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big')
         # bit6, Func1
         if self.chkBox_Func1.isChecked():
             bitMapLow = bitMapLow | (1 << 6)
-            setVal = setVal + self.SendDataSetPara_A1['Func1'].to_bytes(1, byteorder='big')
+            setVal = setVal + self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big')
         # bit7, AL1
         if self.chkBox_AL1.isChecked():
             bitMapLow = bitMapLow | (1 << 7)
-            setVal = setVal + (self.SendDataSetPara_A1['AL1'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AL1'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big')
         # bit8, AH1
         if self.chkBox_AH1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 0)
-            setVal = setVal + (self.SendDataSetPara_A1['AH1'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AH1'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big')
         # bit9, DL1
         if self.chkBox_DL1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 1)
-            setVal = setVal + (self.SendDataSetPara_A1['DL1'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['DL1'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big')
         # bit10, Func2
         if self.chkBox_Func2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 2)
-            setVal = setVal + self.SendDataSetPara_A1['Func2'].to_bytes(1, byteorder='big')
+            setVal = setVal + self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big')
         # bit11, AL2
         if self.chkBox_AL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 3)
-            setVal = setVal + (self.SendDataSetPara_A1['AL2'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AL2'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big')
         # bit12, AH2
         if self.chkBox_AH2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 4)
-            setVal = setVal + (self.SendDataSetPara_A1['AH2'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AH2'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big')
         # bit13, DL2
         if self.chkBox_DL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 5)
-            setVal = setVal + (self.SendDataSetPara_A1['DL2'][0]).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['DL2'][1]).to_bytes(1, byteorder='big')
+            setVal = setVal + (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + \
+                     (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
 
         setVal = bitMapLow.to_bytes(1, byteorder='big') + bitMapHigh.to_bytes(1, byteorder='big') + setVal
 
