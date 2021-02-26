@@ -70,9 +70,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
 
         # signal
         self.tableWidget.horizontalHeader().sectionClicked.connect(self.allSelectedClicked)
-        self.cbox_Unit.currentTextChanged.connect(self.cboxParamChanged)
-        self.cbox_Func1.currentTextChanged.connect(self.cboxParamChanged)
-        self.cbox_Func2.currentTextChanged.connect(self.cboxParamChanged)
+        # self.cbox_Unit.currentTextChanged.connect(self.cboxParamChanged)
+        # self.cbox_Func1.currentTextChanged.connect(self.cboxParamChanged)
+        # self.cbox_Func2.currentTextChanged.connect(self.cboxParamChanged)
 
         # data index
         # Upper limit
@@ -159,72 +159,41 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.btn_portstatus.setStyleSheet("background-color: gray;")
         self.pte_InfoOutput.insertPlainText("端口关闭！" + '\n')
 
-    def cboxParamChanged(self, txt):
-        currentCBox = self.sender()
-        if currentCBox == self.cbox_Unit:
-            if txt == 'Psi':
-                self.SendDataSetPara_A1['Unit'] = MainUI.UnitPsi
-            elif txt == 'Bar':
-                self.SendDataSetPara_A1['Unit'] = MainUI.UnitBar
-            else:
-                self.SendDataSetPara_A1['Unit'] = None
-        # Func1: LO:0, HI:1, WIN1:2, WIN2:3
-        elif currentCBox == self.cbox_Func1:
-            if txt == 'LO':
-                self.SendDataSetPara_A1['Func1'] = MainUI.FuncLO
-            elif txt == 'HI':
-                self.SendDataSetPara_A1['Func1'] = MainUI.FuncHi
-            elif txt == 'WIN1':
-                self.SendDataSetPara_A1['Func1'] = MainUI.FuncWin1
-            elif txt == 'WIN2':
-                self.SendDataSetPara_A1['Func1'] = MainUI.FuncWin2
-            else:
-                self.SendDataSetPara_A1['Func1'] = None
-        # Func1: LO:0, HI:1, WIN1:2, WIN2:3
-        elif currentCBox == self.cbox_Func2:
-            if txt == 'LO':
-                self.SendDataSetPara_A1['Func2'] = MainUI.FuncLO
-            elif txt == 'HI':
-                self.SendDataSetPara_A1['Func2'] = MainUI.FuncHi
-            elif txt == 'WIN1':
-                self.SendDataSetPara_A1['Func2'] = MainUI.FuncWin1
-            elif txt == 'WIN2':
-                self.SendDataSetPara_A1['Func2'] = MainUI.FuncWin2
-            else:
-                self.SendDataSetPara_A1['Func2'] = None
-        else:
-            pass
-        print(self.SendDataSetPara_A1)
-
     def tabWidgetIParamItemChanged(self, item):
         #print(item.text(), item.row(), item.column())
         itemRow = item.row()
         text = item.text()
         if itemRow == MainUI.LowLimitPos:
-            self.SendDataSetPara_A1['LowLimit'] = self.getSettingValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['LowLimit'] = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
         elif itemRow == MainUI.UpperLimitPos:
-            self.SendDataSetPara_A1['UpperLimit'] = self.getSettingValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['UpperLimit'] = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
         elif itemRow == MainUI.DAPPos:
-            self.SendDataSetPara_A1['DAP'] = self.getSettingValue(text, MainUI.DAPPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DAP'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
         elif itemRow == MainUI.PLPos:
-            self.SendDataSetPara_A1['P-L'] = self.getSettingValue(text, MainUI.PLPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['P-L'] = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
         elif itemRow == MainUI.PHPos:
-            self.SendDataSetPara_A1['P-H'] = self.getSettingValue(text, MainUI.PHPos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['P-H'] = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
         elif itemRow == MainUI.AL1Pos:
-            self.SendDataSetPara_A1['AL1'] = self.getSettingValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AL1'] = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
         elif itemRow == MainUI.AH1Pos:
-            self.SendDataSetPara_A1['AH1'] = self.getSettingValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AH1'] = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
         elif itemRow == MainUI.DL1Pos:
-            self.SendDataSetPara_A1['DL1'] = self.getSettingValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DL1'] = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
         elif itemRow == MainUI.AL2Pos:
-            self.SendDataSetPara_A1['AL2'] = self.getSettingValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AL2'] = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
         elif itemRow == MainUI.AH2Pos:
-            self.SendDataSetPara_A1['AH2'] = self.getSettingValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['AH2'] = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
         elif itemRow == MainUI.DL2Pos:
-            self.SendDataSetPara_A1['DL2'] = self.getSettingValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
+            self.SendDataSetPara_A1['DL2'] = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
         print(self.SendDataSetPara_A1)
 
-    def getSettingValue(self, strVal, row, col):
+    def setTextToTabWidget(self, row, col, str):
+        # Prevent triggering signals
+        self.tableWidget.itemChanged.disconnect()
+        self.tableWidget.item(row, col).setText(str)
+        self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+
+    def updateAndDispValue(self, strVal, row, col):
         if col == MainUI.ParamColNum:
             if row == MainUI.LowLimitPos or row == MainUI.UpperLimitPos or row == MainUI.PLPos or row == MainUI.PHPos or \
                 row == MainUI.AL1Pos or row == MainUI.AH1Pos or row == MainUI.AL2Pos or row == MainUI.AH2Pos:
@@ -232,9 +201,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 if re.match(r'^[0-9]$', strVal) != None or re.match(r'^[0-9]{2}$', strVal) != None or \
                         re.match(r'^[0-9]{3}$', strVal) != None or re.match(r'^[0-9]{4}$', strVal) != None:
                     val = int(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
 
                     valLen = len(str(val))
                     if valLen == 1: # X
@@ -250,76 +217,75 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 # X.X, X.XX, X.XXX, 0.X, 0.XX, 0.XXX
                 elif re.match(r'^\d\.[0-9]$', strVal) != None or re.match(r'^\d\.[0-9]{2}$', strVal) != None or re.match(r'^\d\.[0-9]{3}$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 1000), 3]
                 # XX.X, XX.XX
-                elif re.match(r'^[1-9]{2}\.[0-9]$', strVal) != None or re.match(r'^[1-9]{2}\.[0-9]{2}$', strVal) != None:
+                elif re.match(r'^[1-9][0-9]\.[0-9]$', strVal) != None or re.match(r'^[1-9][0-9]\.[0-9]{2}$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 100), 2]
                 # XXX.X
-                elif re.match(r'^[1-9]{3}\.[0-9]$', strVal) != None:
+                elif re.match(r'^[1-9][0-9]{2}\.[0-9]$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 10), 1]
                 # 00.X, 00.XX
                 elif re.match(r'^0{2}\.[0-9]$', strVal) != None or re.match(r'^0{2}\.[0-9]{2}$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 1000), 3]
                 # 000.X
                 elif re.match(r'^0{3}\.[0-9]$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 1000), 3]
                 # 0X.X, 0X.XX
                 elif re.match(r'^0[1-9]\.[0-9]$', strVal) != None or re.match(r'^0[1-9]\.[0-9]{2}$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 1000), 3]
                 # 00X.X
                 elif re.match(r'^0{2}[1-9]\.[0-9]$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 1000), 3]
                 # 0XX.X
                 elif re.match(r'^0[1-9][0-9]\.[0-9]$', strVal) != None:
                     val = float(strVal)
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText(str(val))
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, str(val))
                     return [int(val * 100), 2]
                 else:
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText('#Invalid')
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, '#Invalid')
                     self.pte_InfoOutput.insertPlainText('无效参数！参数范围：[0,9999] 或者 [0.0,999.9]' + '\n')
                     return None
             elif row == MainUI.UnitPos:
-                return self.cbox_Unit.currentText()
+                self.cbox_Unit.setCurrentText(strVal)
+                if strVal == 'Bar':
+                    return MainUI.UnitBar
+                else:
+                    return MainUI.UnitPsi
             elif row == MainUI.DAPPos:
                 if re.match(r'^[0-9]$', strVal) != None or re.match(r'^10$', strVal) != None:
+                    self.setTextToTabWidget(row, col, strVal)
                     return int(strVal)
                 else:
-                    self.tableWidget.itemChanged.disconnect()
-                    self.tableWidget.item(row, MainUI.ParamColNum).setText('#Invalid')
-                    self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+                    self.setTextToTabWidget(row, col, '#Invalid')
                     self.pte_InfoOutput.insertPlainText('无效参数！参数范围：[0,10]' + '\n')
                     return None
+            elif row == MainUI.Func1Pos or row == MainUI.Func2Pos:
+                if row == MainUI.Func1Pos:
+                    self.cbox_Func1.setCurrentText(strVal)
+                else:
+                    self.cbox_Func2.setCurrentText(strVal)
+
+                if strVal == 'LO':
+                    return MainUI.FuncLO
+                elif strVal == 'HI':
+                    return MainUI.FuncHi
+                elif strVal == 'WIN1':
+                    return MainUI.FuncWin1
+                elif strVal == 'WIN2':
+                    return MainUI.FuncWin2
             elif row == MainUI.DL1Pos or row == MainUI.DL2Pos:
                 pass
             else:
@@ -371,179 +337,201 @@ class MainUI(QMainWindow, Ui_MainWindow):
     def cmdHandler(self):
         # Load system data from MCU
         if self.RevData['CmdHeader'] == b'a0':
-            # Prevent triggering signals when querying data
-            self.tableWidget.itemChanged.disconnect()
-            self.cbox_Unit.currentTextChanged.disconnect()
-            self.cbox_Func1.currentTextChanged.disconnect()
-            self.cbox_Func2.currentTextChanged.disconnect()
+            text = ''
 
             # lower limit
             lowerLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['LowLimit'])[::-1])
             lowerLimitDecimal = self.RevDataLoadPara_A0['LowLimit_Decimal']
             if lowerLimitDecimal == b'00':
-                self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamColNum).setText(format(float(int(lowerLimit, 16)) / pow(10, 0), '.0f'))
+                text = format(int(lowerLimit, 16), '.0f')
             elif lowerLimitDecimal == b'01':
-                self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamColNum).setText(format(float(int(lowerLimit, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(lowerLimit, 16)) / pow(10, 1), '.1f')
             elif lowerLimitDecimal == b'02':
-                self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamColNum).setText(format(float(int(lowerLimit, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(lowerLimit, 16)) / pow(10, 2), '.2f')
             elif lowerLimitDecimal == b'03':
-                self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamColNum).setText(format(float(int(lowerLimit, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(lowerLimit, 16)) / pow(10, 3), '.3f')
+            else:
+                text = '#Invalid'
+            self.SendDataSetPara_A1['LowLimit'] = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
 
             # upper limit
             upperLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['UpperLimit'])[::-1])
             upperLimitDecimal = self.RevDataLoadPara_A0['UpperLimit_Decimal']
             if upperLimitDecimal == b'00':
-                self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamColNum).setText(format(float(int(upperLimit, 16)) / pow(10, 0), '.0f'))
+                text = format(int(upperLimit, 16), '.0f')
             elif upperLimitDecimal == b'01':
-                self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamColNum).setText(format(float(int(upperLimit, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(upperLimit, 16)) / pow(10, 1), '.1f')
             elif upperLimitDecimal == b'02':
-                self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamColNum).setText(format(float(int(upperLimit, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(upperLimit, 16)) / pow(10, 2), '.2f')
             elif upperLimitDecimal == b'03':
-                self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamColNum).setText(format(float(int(upperLimit, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(upperLimit, 16)) / pow(10, 3), '.3f')
+            else:
+                text = '#Invalid'
+            self.SendDataSetPara_A1['UpperLimit'] = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
 
             # unit
             # b'00':PSI, b'01':BAR
             unit = self.RevDataLoadPara_A0['Unit']
             if unit == b'01':
-                self.cbox_Unit.setCurrentText('Bar')
+                text = 'Bar'
             elif unit == b'00':
-                self.cbox_Unit.setCurrentText('Psi')
+                text = 'Psi'
             else:
-                self.pte_InfoOutput.insertPlainText("加载单位(Unit)错误!" + '\n')
+                self.SendDataSetPara_A1['Unit'] = None
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['Unit'] = self.updateAndDispValue(text, MainUI.UnitPos, MainUI.ParamColNum)
 
             # DAP
             dap = self.RevDataLoadPara_A0['DAP']
-            self.tableWidget.item(MainUI.DAPPos, MainUI.ParamColNum).setText(str(int(dap, 16)))
+            text = str(int(dap, 16))
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['DAP'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
 
             # P-L
             PLVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-L'])[::-1])
             PLDecimal = self.RevDataLoadPara_A0['P-L_Decimal']
             if PLDecimal == b'00':
-                self.tableWidget.item(MainUI.PLPos, MainUI.ParamColNum).setText(format(float(int(PLVal, 16)) / pow(10, 0), '.0f'))
+                text = format(int(PLVal, 16), '.0f')
             elif PLDecimal == b'01':
-                self.tableWidget.item(MainUI.PLPos, MainUI.ParamColNum).setText(format(float(int(PLVal, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(PLVal, 16)) / pow(10, 1), '.1f')
             elif PLDecimal == b'02':
-                self.tableWidget.item(MainUI.PLPos, MainUI.ParamColNum).setText(format(float(int(PLVal, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(PLVal, 16)) / pow(10, 2), '.2f')
             elif PLDecimal == b'03':
-                self.tableWidget.item(MainUI.PLPos, MainUI.ParamColNum).setText(format(float(int(PLVal, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(PLVal, 16)) / pow(10, 3), '.3f')
+            else:
+                text = '#Invalid'
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['P-L'] = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
 
             # P-H
             PHVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-H'])[::-1])
             PHDecimal = self.RevDataLoadPara_A0['P-H_Decimal']
             if PHDecimal == b'00':
-                self.tableWidget.item(MainUI.PHPos, MainUI.ParamColNum).setText(format(float(int(PHVal, 16)) / pow(10, 0), '.0f'))
+                text = format(int(PHVal, 16), '.0f')
             elif PHDecimal == b'01':
-                self.tableWidget.item(MainUI.PHPos, MainUI.ParamColNum).setText(format(float(int(PHVal, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(PHVal, 16)) / pow(10, 1), '.1f')
             elif PHDecimal == b'02':
-                self.tableWidget.item(MainUI.PHPos, MainUI.ParamColNum).setText(format(float(int(PHVal, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(PHVal, 16)) / pow(10, 2), '.2f')
             elif PHDecimal == b'03':
-                self.tableWidget.item(MainUI.PHPos, MainUI.ParamColNum).setText(format(float(int(PHVal, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(PHVal, 16)) / pow(10, 3), '.3f')
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['P-H'] = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
 
             # Func1
             Func1Val = self.RevDataLoadPara_A0['Func1']
             if Func1Val == b'00':
-                self.cbox_Func1.setCurrentText('LO')
+                text = 'LO'
             elif Func1Val == b'01':
-                self.cbox_Func1.setCurrentText('HI')
+                text = 'HI'
             elif Func1Val == b'02':
-                self.cbox_Func1.setCurrentText('WIN1')
+                text = 'WIN1'
             elif Func1Val == b'03':
-                self.cbox_Func1.setCurrentText('WIN2')
+                text = 'WIN2'
             else:
-                self.pte_InfoOutput.insertPlainText("Func1Val: {}  ".format(Func1Val))
-                self.pte_InfoOutput.insertPlainText("加载Func1错误!" + '\n')
+                text = '#Invalid'
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['Func1'] = self.updateAndDispValue(text, MainUI.Func1Pos, MainUI.ParamColNum)
 
             # AL1
             AL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL1'])[::-1])
             AL1Decimal = self.RevDataLoadPara_A0['AL1_Decimal']
             if AL1Decimal == b'00':
-                self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamColNum).setText(format(float(int(AL1Val, 16)) / pow(10, 0), '.0f'))
+                text = format(int(AL1Val, 16), '.0f')
             elif AL1Decimal == b'01':
-                self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamColNum).setText(format(float(int(AL1Val, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(AL1Val, 16)) / pow(10, 1), '.1f')
             elif AL1Decimal == b'02':
-                self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamColNum).setText(format(float(int(AL1Val, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(AL1Val, 16)) / pow(10, 2), '.2f')
             elif AL1Decimal == b'03':
-                self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamColNum).setText(format(float(int(AL1Val, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(AL1Val, 16)) / pow(10, 3), '.3f')
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['AL1'] = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
 
             # AH1
             AH1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH1'])[::-1])
             AH1Decimal = self.RevDataLoadPara_A0['AH1_Decimal']
             if AH1Decimal == b'00':
-                self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamColNum).setText(format(float(int(AH1Val, 16)) / pow(10, 0), '.0f'))
+                text = format(int(AH1Val, 16), '.0f')
             elif AH1Decimal == b'01':
-                self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamColNum).setText(format(float(int(AH1Val, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(AH1Val, 16)) / pow(10, 1), '.1f')
             elif AH1Decimal == b'02':
-                self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamColNum).setText(format(float(int(AH1Val, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(AH1Val, 16)) / pow(10, 2), '.2f')
             elif AH1Decimal == b'03':
-                self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamColNum).setText(format(float(int(AH1Val, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(AH1Val, 16)) / pow(10, 3), '.3f')
+            else:
+                text = '#Invalid'
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['AH1'] = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
 
             # DL1
             DL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL1'])[::-1])
             self.tableWidget.item(MainUI.DL1Pos, MainUI.ParamColNum).setText(format(float(int(DL1Val, 16)) / pow(10, 0), '.0f'))
+            # assign value to the buffer to be sent
 
             # Func2
             Func2Val = self.RevDataLoadPara_A0['Func2']
             if Func2Val == b'00':
-                self.cbox_Func2.setCurrentText('LO')
+                text = 'LO'
             elif Func2Val == b'01':
-                self.cbox_Func2.setCurrentText('HI')
+                text = 'HI'
             elif Func2Val == b'02':
-                self.cbox_Func2.setCurrentText('WIN1')
+                text = 'WIN1'
             elif Func2Val == b'03':
-                self.cbox_Func2.setCurrentText('WIN2')
+                text = 'WIN2'
             else:
-                self.pte_InfoOutput.insertPlainText("Func2Val: {}  ".format(Func2Val))
-                self.pte_InfoOutput.insertPlainText("加载Func2错误!" + '\n')
+                text = '#Invalid'
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['Func2'] = self.updateAndDispValue(text, MainUI.Func2Pos, MainUI.ParamColNum)
 
             # AL2
             AL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL2'])[::-1])
             AL2Decimal = self.RevDataLoadPara_A0['AL2_Decimal']
             if AL2Decimal == b'00':
-                self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamColNum).setText(format(float(int(AL2Val, 16)) / pow(10, 0), '.0f'))
+                text = format(int(AL2Val, 16), '.0f')
             elif AL2Decimal == b'01':
-                self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamColNum).setText(format(float(int(AL2Val, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(AL2Val, 16)) / pow(10, 1), '.1f')
             elif AL2Decimal == b'02':
-                self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamColNum).setText(format(float(int(AL2Val, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(AL2Val, 16)) / pow(10, 2), '.2f')
             elif AL2Decimal == b'03':
-                self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamColNum).setText(format(float(int(AL2Val, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(AL2Val, 16)) / pow(10, 3), '.3f')
+            else:
+                text = '#Invalid'
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['AL2'] = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
 
             # AH2
             AH2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH2'])[::-1])
             AH2Decimal = self.RevDataLoadPara_A0['AH2_Decimal']
             if AH2Decimal == b'00':
-                self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamColNum).setText(format(float(int(AH2Val, 16)) / pow(10, 0), '.0f'))
+                text = format(int(AL2Val, 16), '.0f')
             elif AH2Decimal == b'01':
-                self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamColNum).setText(format(float(int(AH2Val, 16)) / pow(10, 1), '.1f'))
+                text = format(float(int(AH2Val, 16)) / pow(10, 1), '.1f')
             elif AH2Decimal == b'02':
-                self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamColNum).setText(format(float(int(AH2Val, 16)) / pow(10, 2), '.2f'))
+                text = format(float(int(AH2Val, 16)) / pow(10, 2), '.2f')
             elif AH2Decimal == b'03':
-                self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamColNum).setText(format(float(int(AH2Val, 16)) / pow(10, 3), '.3f'))
+                text = format(float(int(AH2Val, 16)) / pow(10, 3), '.3f')
+            # assign value to the buffer to be sent
+            self.SendDataSetPara_A1['AH2'] = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
 
             # DL1
             DL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL2'])[::-1])
             self.tableWidget.item(MainUI.DL2Pos, MainUI.ParamColNum).setText(format(float(int(DL2Val, 16)) / pow(10, 0), '.0f'))
+            # assign value to the buffer to be sent
 
             # parameter description
-            self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.UnitPos, MainUI.ParamDescColNum).setText("Psi:0, Bar:1")
-            self.tableWidget.item(MainUI.DAPPos, MainUI.ParamDescColNum).setText("int, [0-10]")
-            self.tableWidget.item(MainUI.PLPos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.PHPos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.Func1Pos, MainUI.ParamDescColNum).setText("LO:0,HI:1,WIN1:2,WIN2:3")
-            self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.DL1Pos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.Func2Pos, MainUI.ParamDescColNum).setText("LO:0,HI:1,WIN1:2,WIN2:3")
-            self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-            self.tableWidget.item(MainUI.DL2Pos, MainUI.ParamDescColNum).setText("float,int, [0, 9999]")
-
-            # Prevent triggering signals when querying data
-            self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
-            self.cbox_Unit.currentTextChanged.connect(self.cboxParamChanged)
-            self.cbox_Func1.currentTextChanged.connect(self.cboxParamChanged)
-            self.cbox_Func2.currentTextChanged.connect(self.cboxParamChanged)
+            self.setTextToTabWidget(MainUI.LowLimitPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.UpperLimitPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.UnitPos, MainUI.ParamDescColNum, 'Psi:0, Bar:1')
+            self.setTextToTabWidget(MainUI.DAPPos, MainUI.ParamDescColNum, 'int, [0-10]')
+            self.setTextToTabWidget(MainUI.PLPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.PHPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.Func1Pos, MainUI.ParamDescColNum, 'LO:0,HI:1,WIN1:2,WIN2:3')
+            self.setTextToTabWidget(MainUI.AL1Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.AH1Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.DL1Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.Func2Pos, MainUI.ParamDescColNum, 'LO:0,HI:1,WIN1:2,WIN2:3')
+            self.setTextToTabWidget(MainUI.AL2Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.AH2Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+            self.setTextToTabWidget(MainUI.DL2Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
 
     def btnRestoreFactoryClicked(self):
         if self.port.isOpen():
@@ -555,108 +543,56 @@ class MainUI(QMainWindow, Ui_MainWindow):
     def btnSetParametersClicked(self):
         bitMapLow = 0b0
         bitMapHigh = 0b0
-        paramList = []
+        setVal = b''
 
         # bit0, lower limit
         if self.chkBox_lowerlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 0)
-            self.lowLimitData = self.tableWidget.item(0, 2).text()
-            paramList.append(self.lowLimitData)
-            print('lower limit: ', self.lowLimitData)
-
         # bit1, upper limit
         if self.chkBox_upperlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 1)
-            self.upperLimitData = self.tableWidget.item(1, 2).text()
-            paramList.append(self.upperLimitData)
-            print('upper limit: ', self.upperLimitData)
-
         # bit2, unit
         if self.chkBox_Unit.isChecked():
             bitMapLow = bitMapLow | (1 << 2)
-            self.unitData = self.cbox_Unit.currentText()
-            paramList.append(self.unitData)
-            print('unit: ', self.unitData)
-
         # bit3, DAP
         if self.chkBox_DAP.isChecked():
             bitMapLow = bitMapLow | (1 << 3)
-            self.dapData = self.tableWidget.item(3, 2).text()
-            paramList.append(self.dapData)
-            print('dap: ', self.dapData)
-
         # bit4, P-L
         if self.chkBox_PL.isChecked():
             bitMapLow = bitMapLow | (1 << 4)
-            self.PLData = self.tableWidget.item(4, 2).text()
-            paramList.append(self.PLData)
-            print('P-L: ', self.PLData)
-
         # bit5, P-H
         if self.chkBox_PH.isChecked():
             bitMapLow = bitMapLow | (1 << 5)
-            self.PHData = self.tableWidget.item(5, 2).text()
-            paramList.append(self.PHData)
-            print('P-H: ', self.PHData)
-
         # bit6, Func1
         if self.chkBox_Func1.isChecked():
             bitMapLow = bitMapLow | (1 << 6)
-            self.Func1Data = self.cbox_Func1.currentText()
-            paramList.append(self.Func1Data)
-            print('func1: ', self.Func1Data)
-
         # bit7, AL1
         if self.chkBox_AL1.isChecked():
             bitMapLow = bitMapLow | (1 << 7)
-            self.AL1Data = self.tableWidget.item(7, 2).text()
-            paramList.append(self.AL1Data)
-            print('AL1: ', self.AL1Data)
-
         # bit8, AH1
         if self.chkBox_AH1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 0)
-            self.AH1Data = self.tableWidget.item(8, 2).text()
-            paramList.append(self.AH1Data)
-            print('AH1: ', self.AH1Data)
-
         # bit9, DL1
         if self.chkBox_DL1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 1)
-            self.DL1Data = self.tableWidget.item(9, 2).text()
-            paramList.append(self.DL1Data)
-            print('DL1: ', self.DL1Data)
-
         # bit10, Func2
         if self.chkBox_Func2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 2)
-            self.Func2Data = self.cbox_Func2.currentText()
-            paramList.append(self.Func2Data)
-            print('func2: ', self.Func2Data)
-
         # bit11, AL2
         if self.chkBox_AL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 3)
-            self.AL2Data = self.tableWidget.item(11, 2).text()
-            paramList.append(self.AL2Data)
-            print('AL2: ', self.AL2Data)
-
         # bit12, AH2
         if self.chkBox_AH2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 4)
-            self.AH2Data = self.tableWidget.item(12, 2).text()
-            paramList.append(self.AH2Data)
-            print('AH2: ', self.AH2Data)
-
         # bit13, DL2
         if self.chkBox_DL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 5)
-            self.DL2Data = self.tableWidget.item(13, 2).text()
-            paramList.append(self.DL2Data)
-            print('DL2: ', self.DL2Data)
 
-        print([bitMapLow, bitMapHigh] + paramList)
-        #self.port.write(bytes([bitMapLow, bitMapHigh]))
+        setVal = setVal + (self.SendDataSetPara_A1['LowLimit'][0]).to_bytes(2, byteorder='big') + \
+                 (self.SendDataSetPara_A1['LowLimit'][1]).to_bytes(1, byteorder='big')
+
+        print(self.SendDataSetPara_A1)
+        print(setVal)
 
     def widgetStatusRefresh(self):
         if self.port.isOpen():
@@ -680,7 +616,6 @@ class MainUI(QMainWindow, Ui_MainWindow):
             self.pte_InfoOutput.insertPlainText("请打开串口！" + '\n')
 
     def allSelectedClicked(self, col):
-        print(col)
         if col == 0:
             item = self.tableWidget.horizontalHeaderItem(0)
 
