@@ -41,7 +41,11 @@ class MainUI(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(MainUI, self).__init__()
         self.setupUi(self)
-        self.CmdId = {'GetParam': 'A0', 'SetParam': 'A1', 'GetADCVal': 'A5', 'KeyMessage': 'A6', 'RestoreFactory': 'A7'}
+        self.CmdId = {'GetParam': 'A0',
+                      'SetParam': 'A1',
+                      'GetADCVal': 'A5',
+                      'KeyMessage': 'A6',
+                      'RestoreFactory': 'A7'}
         self.RevData = {'CmdHeader': '', 'CmdData': ''}
         self.RevDataLoadPara_A0 = {'LowLimit': {'value': None, 'decimal': None},
                                    'UpperLimit': {'value': None, 'decimal': None},
@@ -637,74 +641,97 @@ class MainUI(QMainWindow, Ui_MainWindow):
         # bit0, lower limit
         if self.chkBox_lowerlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 0)
-            setVal = setVal + (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big')
+        else:
+            setVal = setVal
         # bit1, upper limit
         if self.chkBox_upperlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 1)
-            setVal = setVal + (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big')
         # bit2, unit
         if self.chkBox_Unit.isChecked():
             bitMapLow = bitMapLow | (1 << 2)
-            setVal = setVal + self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big')
+            # setVal = setVal + self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big')
         # bit3, DAP
         if self.chkBox_DAP.isChecked():
             bitMapLow = bitMapLow | (1 << 3)
-            setVal = setVal + self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big')
+            # setVal = setVal + self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big')
         # bit4, P-L
         if self.chkBox_PL.isChecked():
             bitMapLow = bitMapLow | (1 << 4)
-            setVal = setVal + (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big')
         # bit5, P-H
         if self.chkBox_PH.isChecked():
             bitMapLow = bitMapLow | (1 << 5)
-            setVal = setVal + (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big')
         # bit6, Func1
         if self.chkBox_Func1.isChecked():
             bitMapLow = bitMapLow | (1 << 6)
-            setVal = setVal + self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big')
+            # setVal = setVal + self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big')
         # bit7, AL1
         if self.chkBox_AL1.isChecked():
             bitMapLow = bitMapLow | (1 << 7)
-            setVal = setVal + (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big')
         # bit8, AH1
         if self.chkBox_AH1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 0)
-            setVal = setVal + (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big')
         # bit9, DL1
         if self.chkBox_DL1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 1)
-            setVal = setVal + (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big')
         # bit10, Func2
         if self.chkBox_Func2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 2)
-            setVal = setVal + self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big')
+            # setVal = setVal + self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big')
         # bit11, AL2
         if self.chkBox_AL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 3)
-            setVal = setVal + (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big')
         # bit12, AH2
         if self.chkBox_AH2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 4)
-            setVal = setVal + (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big')
         # bit13, DL2
         if self.chkBox_DL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 5)
-            setVal = setVal + (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + \
-                     (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+            # setVal = setVal + (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + \
+            #          (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
 
-        setVal = bitMapLow.to_bytes(1, byteorder='big') + bitMapHigh.to_bytes(1, byteorder='big') + setVal
+        if bitMapLow != 0 or bitMapHigh != 0:
+            setVal = int(self.CmdId['SetParam'], 16).to_bytes(1, byteorder='big') + \
+                     bitMapLow.to_bytes(1, byteorder='big') + \
+                     bitMapHigh.to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big') + \
+                     self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big') + \
+                     self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big') + \
+                     self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big') + \
+                     self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big') + \
+                     (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+
+            print(setVal)
+            self.port.write(setVal)
+        else:
+            self.pte_InfoOutput.insertPlainText('选择需要修改的参数！' + '\n')
 
         print(self.SendDataSetPara_A1)
-        print(setVal)
         print(''.join('%02X,' % b for b in setVal))
 
     def widgetStatusRefresh(self):
@@ -778,7 +805,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout0.setAlignment(self.chkBox_lowerlimit, Qt.AlignCenter)
         widget0 = QWidget()
         widget0.setLayout(hLayout0)
-        self.tableWidget.setCellWidget(0, 0, widget0)
+        self.tableWidget.setCellWidget(MainUI.LowLimitPos, 0, widget0)
         # upper limit
         self.chkBox_upperlimit = QCheckBox()
         hLayout1 = QHBoxLayout()
@@ -786,7 +813,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout1.setAlignment(self.chkBox_upperlimit, Qt.AlignCenter)
         widget1 = QWidget()
         widget1.setLayout(hLayout1)
-        self.tableWidget.setCellWidget(1, 0, widget1)
+        self.tableWidget.setCellWidget(MainUI.UpperLimitPos, 0, widget1)
         # unit
         self.chkBox_Unit = QCheckBox()
         hLayout2 = QHBoxLayout()
@@ -794,9 +821,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout2.setAlignment(self.chkBox_Unit, Qt.AlignCenter)
         widget2 = QWidget()
         widget2.setLayout(hLayout2)
-        self.tableWidget.setCellWidget(2, 0, widget2)
+        self.tableWidget.setCellWidget(MainUI.UnitPos, 0, widget2)
         self.cbox_Unit = QComboBox()
-        self.tableWidget.setCellWidget(2, 2, self.cbox_Unit)
+        self.tableWidget.setCellWidget(MainUI.UnitPos, 2, self.cbox_Unit)
         self.cbox_Unit.addItems(['Bar', 'Psi'])
         self.cbox_Unit.setCurrentIndex(-1)
         # DAP
@@ -806,7 +833,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout3.setAlignment(self.chkBox_DAP, Qt.AlignCenter)
         widget3 = QWidget()
         widget3.setLayout(hLayout3)
-        self.tableWidget.setCellWidget(3, 0, widget3)
+        self.tableWidget.setCellWidget(MainUI.DAPPos, 0, widget3)
         # P-L
         self.chkBox_PL = QCheckBox()
         hLayout4 = QHBoxLayout()
@@ -814,7 +841,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout4.setAlignment(self.chkBox_PL, Qt.AlignCenter)
         widget4 = QWidget()
         widget4.setLayout(hLayout4)
-        self.tableWidget.setCellWidget(4, 0, widget4)
+        self.tableWidget.setCellWidget(MainUI.PLPos, 0, widget4)
         # P-H
         self.chkBox_PH = QCheckBox()
         hLayout5 = QHBoxLayout()
@@ -822,7 +849,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout5.setAlignment(self.chkBox_PH, Qt.AlignCenter)
         widget5 = QWidget()
         widget5.setLayout(hLayout5)
-        self.tableWidget.setCellWidget(5, 0, widget5)
+        self.tableWidget.setCellWidget(MainUI.PHPos, 0, widget5)
         # Func1
         self.chkBox_Func1 = QCheckBox()
         hLayout6 = QHBoxLayout()
@@ -830,9 +857,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout6.setAlignment(self.chkBox_Func1, Qt.AlignCenter)
         widget6 = QWidget()
         widget6.setLayout(hLayout6)
-        self.tableWidget.setCellWidget(6, 0, widget6)
+        self.tableWidget.setCellWidget(MainUI.Func1Pos, 0, widget6)
         self.cbox_Func1 = QComboBox()
-        self.tableWidget.setCellWidget(6, 2, self.cbox_Func1)
+        self.tableWidget.setCellWidget(MainUI.Func1Pos, 2, self.cbox_Func1)
         self.cbox_Func1.addItems(['LO', 'HI', 'WIN1', 'WIN2'])
         self.cbox_Func1.setCurrentIndex(-1)
         # AL1
@@ -842,7 +869,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout7.setAlignment(self.chkBox_AL1, Qt.AlignCenter)
         widget7 = QWidget()
         widget7.setLayout(hLayout7)
-        self.tableWidget.setCellWidget(7, 0, widget7)
+        self.tableWidget.setCellWidget(MainUI.AL1Pos, 0, widget7)
         # AH1
         self.chkBox_AH1 = QCheckBox()
         hLayout8 = QHBoxLayout()
@@ -850,7 +877,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout8.setAlignment(self.chkBox_AH1, Qt.AlignCenter)
         widget8 = QWidget()
         widget8.setLayout(hLayout8)
-        self.tableWidget.setCellWidget(8, 0, widget8)
+        self.tableWidget.setCellWidget(MainUI.AH1Pos, 0, widget8)
         # DL1
         self.chkBox_DL1 = QCheckBox()
         hLayout9 = QHBoxLayout()
@@ -858,7 +885,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout9.setAlignment(self.chkBox_DL1, Qt.AlignCenter)
         widget9 = QWidget()
         widget9.setLayout(hLayout9)
-        self.tableWidget.setCellWidget(9, 0, widget9)
+        self.tableWidget.setCellWidget(MainUI.DL1Pos, 0, widget9)
         # Func2
         self.chkBox_Func2 = QCheckBox()
         hLayout10 = QHBoxLayout()
@@ -866,9 +893,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout10.setAlignment(self.chkBox_Func2, Qt.AlignCenter)
         widget10 = QWidget()
         widget10.setLayout(hLayout10)
-        self.tableWidget.setCellWidget(10, 0, widget10)
+        self.tableWidget.setCellWidget(MainUI.Func2Pos, 0, widget10)
         self.cbox_Func2 = QComboBox()
-        self.tableWidget.setCellWidget(10, 2, self.cbox_Func2)
+        self.tableWidget.setCellWidget(MainUI.Func2Pos, 2, self.cbox_Func2)
         self.cbox_Func2.addItems(['LO', 'HI', 'WIN1', 'WIN2'])
         self.cbox_Func2.setCurrentIndex(-1)
         # AL2
@@ -878,7 +905,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout11.setAlignment(self.chkBox_AL2, Qt.AlignCenter)
         widget11 = QWidget()
         widget11.setLayout(hLayout11)
-        self.tableWidget.setCellWidget(11, 0, widget11)
+        self.tableWidget.setCellWidget(MainUI.AL2Pos, 0, widget11)
         # AH2
         self.chkBox_AH2 = QCheckBox()
         hLayout12 = QHBoxLayout()
@@ -886,7 +913,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout12.setAlignment(self.chkBox_AH2, Qt.AlignCenter)
         widget12 = QWidget()
         widget12.setLayout(hLayout12)
-        self.tableWidget.setCellWidget(12, 0, widget12)
+        self.tableWidget.setCellWidget(MainUI.AH2Pos, 0, widget12)
         # DL2
         self.chkBox_DL2 = QCheckBox()
         hLayout13 = QHBoxLayout()
@@ -894,7 +921,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         hLayout13.setAlignment(self.chkBox_DL2, Qt.AlignCenter)
         widget13 = QWidget()
         widget13.setLayout(hLayout13)
-        self.tableWidget.setCellWidget(13, 0, widget13)
+        self.tableWidget.setCellWidget(MainUI.DL2Pos, 0, widget13)
 
     '''size (bytes)'''
     UpperLimitSize = 2
