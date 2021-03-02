@@ -95,7 +95,11 @@ class MainUI(QMainWindow, Ui_MainWindow):
 
         # signal
         self.tableWidget.horizontalHeader().sectionClicked.connect(self.allSelectedClicked)
-        self.cbox_Unit.currentTextChanged.connect(self.cboxUnitChanged)
+
+        # widget init status
+        self.btn_port_close.setEnabled(False)
+        self.btn_queryParam.setEnabled(False)
+        self.btn_setParam.setEnabled(False)
 
         # data index
         # Upper limit
@@ -161,15 +165,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.DL2DecimalIndexStart = self.DL2IndexEnd
         self.DL2DecimalIndexEnd = self.DL2DecimalIndexStart + MainUI.DL2DecimalSize * 2
 
-    def cboxUnitChanged(self, str):
-        print(str)
-        obj = self.sender()
-        #self.cbox_Unit.setItemData(1, QVariant(0), Qt.ItemDataRole.UserRole)
-
     def chkBoxParamSelectedStateChanged(self, status):
         chkBoxObj = self.sender()
         item = None
-        print(chkBoxObj.objectName())
 
         if chkBoxObj.objectName() == 'chkBoxLowLimit':
             item = self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamColNum)
@@ -229,6 +227,15 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 item.setFlags(item.flags() & (~QtCore.Qt.ItemIsEditable))
 
+        # widget status
+        if self.chkBox_lowerlimit.isChecked() or self.chkBox_upperlimit.isChecked() or self.chkBox_Unit.isChecked() or \
+            self.chkBox_DAP.isChecked() or self.chkBox_PL.isChecked() or self.chkBox_PH.isChecked() or \
+            self.chkBox_Func1.isChecked() or self.chkBox_AL1.isChecked() or self.chkBox_AH1.isChecked() or self.chkBox_DL1.isChecked() or \
+            self.chkBox_Func2.isChecked() or self.chkBox_AL2.isChecked() or self.chkBox_AH2.isChecked() or self.chkBox_DL2.isChecked():
+            self.btn_setParam.setEnabled(True)
+        else:
+            self.btn_setParam.setEnabled(False)
+
     def btnPortConfigClicked(self):
         selected = self.portconfig.exec()
 
@@ -249,10 +256,29 @@ class MainUI(QMainWindow, Ui_MainWindow):
             self.btn_portstatus.setStyleSheet("background-color: rgb(255, 99, 52)")
             self.pte_InfoOutput.insertPlainText("端口打开！" + '\n')
 
+            # widget status
+            self.btn_port_close.setEnabled(True)
+            self.btn_queryParam.setEnabled(True)
+            self.btn_portConfig.setEnabled(False)
+            self.btn_port_open.setEnabled(False)
+        else:
+            # widget status
+            self.btn_port_close.setEnabled(False)
+            self.btn_queryParam.setEnabled(False)
+            self.btn_portConfig.setEnabled(True)
+            self.btn_port_open.setEnabled(True)
+
     def btnClosePortClicked(self):
         self.port.close()
         self.btn_portstatus.setStyleSheet("background-color: gray;")
         self.pte_InfoOutput.insertPlainText("端口关闭！" + '\n')
+
+        # widget status
+        self.btn_port_open.setEnabled(True)
+        self.btn_portConfig.setEnabled(True)
+        self.btn_queryParam.setEnabled(False)
+        self.btn_setParam.setEnabled(False)
+        self.btn_port_close.setEnabled(False)
 
     def tabWidgetIParamItemChanged(self, item):
         #print(item.text(), item.row(), item.column())
@@ -387,10 +413,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
                     self.pte_InfoOutput.insertPlainText('无效参数！参数范围：[0,9999] 或者 [0.0,999.9]' + '\n')
                     return None
             elif row == MainUI.UnitPos:
-                # disconnect signal, there is no need to trigger this signal here
-                self.cbox_Unit.currentTextChanged.disconnect()
                 self.cbox_Unit.setCurrentText(strVal)
-                self.cbox_Unit.currentTextChanged.connect(self.cboxUnitChanged)
                 if strVal == 'Bar':
                     return MainUI.UnitBar
                 else:
@@ -825,6 +848,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
                      (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big') + \
                      (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big') + \
                      (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+
+
 
             print(setVal)
             self.port.write(setVal)
