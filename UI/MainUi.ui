@@ -253,6 +253,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="0" column="3">
                  <property name="text">
@@ -279,6 +282,9 @@
                  </property>
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
+                 </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                  </property>
                 </item>
                 <item row="1" column="3">
@@ -307,6 +313,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="2" column="3">
                  <property name="text">
@@ -333,6 +342,9 @@
                  </property>
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
+                 </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                  </property>
                 </item>
                 <item row="3" column="3">
@@ -361,6 +373,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="4" column="3">
                  <property name="text">
@@ -388,6 +403,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="5" column="3">
                  <property name="text">
@@ -411,6 +429,9 @@
                  </property>
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
+                 </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                  </property>
                 </item>
                 <item row="6" column="3">
@@ -442,6 +463,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="7" column="3">
                  <property name="text">
@@ -465,6 +489,9 @@
                  </property>
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
+                 </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                  </property>
                 </item>
                 <item row="8" column="3">
@@ -490,6 +517,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="9" column="3">
                  <property name="text">
@@ -513,6 +543,9 @@
                  </property>
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
+                 </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                  </property>
                 </item>
                 <item row="10" column="3">
@@ -538,6 +571,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="11" column="3">
                  <property name="text">
@@ -562,6 +598,9 @@
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
                  </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+                 </property>
                 </item>
                 <item row="12" column="3">
                  <property name="text">
@@ -585,6 +624,9 @@
                  </property>
                  <property name="textAlignment">
                   <set>AlignLeading|AlignVCenter</set>
+                 </property>
+                 <property name="flags">
+                  <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
                  </property>
                 </item>
                 <item row="13" column="3">
@@ -814,7 +856,7 @@
    <slot>btnQueryParametersClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>723</x>
+     <x>633</x>
      <y>186</y>
     </hint>
     <hint type="destinationlabel">
@@ -830,7 +872,7 @@
    <slot>btnSetParametersClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>723</x>
+     <x>633</x>
      <y>215</y>
     </hint>
     <hint type="destinationlabel">
@@ -846,7 +888,7 @@
    <slot>btnKeyClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>713</x>
+     <x>623</x>
      <y>319</y>
     </hint>
     <hint type="destinationlabel">
@@ -862,7 +904,7 @@
    <slot>btnKeyClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>713</x>
+     <x>623</x>
      <y>348</y>
     </hint>
     <hint type="destinationlabel">
@@ -878,7 +920,7 @@
    <slot>btnKeyClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>713</x>
+     <x>623</x>
      <y>377</y>
     </hint>
     <hint type="destinationlabel">
@@ -894,7 +936,7 @@
    <slot>btnKeyClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>713</x>
+     <x>623</x>
      <y>406</y>
     </hint>
     <hint type="destinationlabel">
@@ -910,8 +952,8 @@
    <slot>tabWidgetIParamItemChanged()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>555</x>
-     <y>130</y>
+     <x>522</x>
+     <y>224</y>
     </hint>
     <hint type="destinationlabel">
      <x>754</x>

@@ -95,6 +95,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
 
         # signal
         self.tableWidget.horizontalHeader().sectionClicked.connect(self.allSelectedClicked)
+        self.cbox_Unit.currentTextChanged.connect(self.cboxUnitChanged)
 
         # data index
         # Upper limit
@@ -160,6 +161,74 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.DL2DecimalIndexStart = self.DL2IndexEnd
         self.DL2DecimalIndexEnd = self.DL2DecimalIndexStart + MainUI.DL2DecimalSize * 2
 
+    def cboxUnitChanged(self, str):
+        print(str)
+        obj = self.sender()
+        #self.cbox_Unit.setItemData(1, QVariant(0), Qt.ItemDataRole.UserRole)
+
+    def chkBoxParamSelectedStateChanged(self, status):
+        chkBoxObj = self.sender()
+        item = None
+        print(chkBoxObj.objectName())
+
+        if chkBoxObj.objectName() == 'chkBoxLowLimit':
+            item = self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxUpperLimit':
+            item = self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxUnit':
+            # optional
+            if chkBoxObj.isChecked():
+                for index in range(self.cbox_Unit.count()):
+                    self.cbox_Unit.setItemData(index, QVariant(1 | 32), Qt.ItemDataRole.UserRole - 1)
+            # not optional
+            else:
+                for index in range(self.cbox_Unit.count()):
+                    self.cbox_Unit.setItemData(index, QVariant(0), Qt.ItemDataRole.UserRole - 1)
+        elif chkBoxObj.objectName() == 'chkBoxDAP':
+            item = self.tableWidget.item(MainUI.DAPPos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxPL':
+            item = self.tableWidget.item(MainUI.PLPos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxPH':
+            item = self.tableWidget.item(MainUI.PHPos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxFunc1':
+            # optional
+            if chkBoxObj.isChecked():
+                for index in range(self.cbox_Func1.count()):
+                    self.cbox_Func1.setItemData(index, QVariant(1 | 32), Qt.ItemDataRole.UserRole - 1)
+            # not optional
+            else:
+                for index in range(self.cbox_Func1.count()):
+                    self.cbox_Func1.setItemData(index, QVariant(0), Qt.ItemDataRole.UserRole - 1)
+        elif chkBoxObj.objectName() == 'chkBoxAL1':
+            item = self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxAH1':
+            item = self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxDL1':
+            item = self.tableWidget.item(MainUI.DL1Pos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxFunc2':
+            # optional
+            if chkBoxObj.isChecked():
+                for index in range(self.cbox_Func2.count()):
+                    self.cbox_Func2.setItemData(index, QVariant(1 | 32), Qt.ItemDataRole.UserRole - 1)
+            # not optional
+            else:
+                for index in range(self.cbox_Func2.count()):
+                    self.cbox_Func2.setItemData(index, QVariant(0), Qt.ItemDataRole.UserRole - 1)
+        elif chkBoxObj.objectName() == 'chkBoxAL2':
+            item = self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxAH2':
+            item = self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamColNum)
+        elif chkBoxObj.objectName() == 'chkBoxDL2':
+            item = self.tableWidget.item(MainUI.DL2Pos, MainUI.ParamColNum)
+        else:
+            pass
+
+        if item != None:
+            if chkBoxObj.isChecked():
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
+            else:
+                item.setFlags(item.flags() & (~QtCore.Qt.ItemIsEditable))
+
     def btnPortConfigClicked(self):
         selected = self.portconfig.exec()
 
@@ -191,48 +260,58 @@ class MainUI(QMainWindow, Ui_MainWindow):
         text = item.text()
         if itemRow == MainUI.LowLimitPos:
             dicVal = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.UpperLimitPos:
             dicVal = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.UnitPos:
             pass
         elif itemRow == MainUI.DAPPos:
             self.SendDataSetPara_A1['DAP']['value'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
         elif itemRow == MainUI.PLPos:
             dicVal = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.PHPos:
             dicVal = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AL1Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AH1Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.DL1Pos:
             dicVal = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AL2Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.AH2Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
         elif itemRow == MainUI.DL2Pos:
             dicVal = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
         print(self.SendDataSetPara_A1)
 
     def setTextToTabWidget(self, row, col, str):
@@ -308,7 +387,10 @@ class MainUI(QMainWindow, Ui_MainWindow):
                     self.pte_InfoOutput.insertPlainText('无效参数！参数范围：[0,9999] 或者 [0.0,999.9]' + '\n')
                     return None
             elif row == MainUI.UnitPos:
+                # disconnect signal, there is no need to trigger this signal here
+                self.cbox_Unit.currentTextChanged.disconnect()
                 self.cbox_Unit.setCurrentText(strVal)
+                self.cbox_Unit.currentTextChanged.connect(self.cboxUnitChanged)
                 if strVal == 'Bar':
                     return MainUI.UnitBar
                 else:
@@ -403,8 +485,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.LowLimitPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
 
             # upper limit
             upperLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['UpperLimit']['value'])[::-1])
@@ -421,8 +504,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
 
             # unit
             # b'00':PSI, b'01':BAR
@@ -434,13 +518,17 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 self.SendDataSetPara_A1['Unit']['value'] = None
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['Unit']['value'] = self.updateAndDispValue(text, MainUI.UnitPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.UnitPos, MainUI.ParamColNum)
+            if dicVal != None:
+                self.SendDataSetPara_A1['Unit']['value'] = dicVal
 
             # DAP
             dap = self.RevDataLoadPara_A0['DAP']['value']
             text = str(int(dap, 16))
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['DAP']['value'] = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
+            if dicVal != None:
+                self.SendDataSetPara_A1['DAP']['value'] = dicVal
 
             # P-L
             PLVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-L']['value'])[::-1])
@@ -457,8 +545,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.PLPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
 
             # P-H
             PHVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-H']['value'])[::-1])
@@ -473,8 +562,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = format(float(int(PHVal, 16)) / pow(10, 3), '.3f')
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
 
             # Func1
             Func1Val = self.RevDataLoadPara_A0['Func1']['value']
@@ -489,7 +579,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['Func1']['value'] = self.updateAndDispValue(text, MainUI.Func1Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.Func1Pos, MainUI.ParamColNum)
+            if dicVal != None:
+                self.SendDataSetPara_A1['Func1']['value'] = dicVal
 
             # AL1
             AL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL1']['value'])[::-1])
@@ -504,8 +596,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = format(float(int(AL1Val, 16)) / pow(10, 3), '.3f')
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
 
             # AH1
             AH1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH1']['value'])[::-1])
@@ -522,8 +615,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
 
             # DL1
             DL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL1']['value'])[::-1])
@@ -540,8 +634,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
 
             # Func2
             Func2Val = self.RevDataLoadPara_A0['Func2']['value']
@@ -556,7 +651,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             else:
                 text = '#Invalid'
             # assign value to the buffer to be sent
-            self.SendDataSetPara_A1['Func2']['value'] = self.updateAndDispValue(text, MainUI.Func2Pos, MainUI.ParamColNum)
+            dicVal = self.updateAndDispValue(text, MainUI.Func2Pos, MainUI.ParamColNum)
+            if dicVal != None:
+                self.SendDataSetPara_A1['Func2']['value'] = dicVal
 
             # AL2
             AL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL2']['value'])[::-1])
@@ -573,8 +670,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
 
             # AH2
             AH2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH2']['value'])[::-1])
@@ -589,8 +687,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = format(float(int(AH2Val, 16)) / pow(10, 3), '.3f')
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
 
             # DL2
             DL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL2']['value'])[::-1])
@@ -607,8 +706,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 text = '#Invalid'
             # assign value to the buffer to be sent
             dicVal = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
-            self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
-            self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
+            if dicVal != None:
+                self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
+                self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
 
             # parameter description
             self.setTextToTabWidget(MainUI.LowLimitPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
@@ -800,6 +900,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         #self.tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         # lower limit
         self.chkBox_lowerlimit = QCheckBox()
+        self.chkBox_lowerlimit.setObjectName('chkBoxLowLimit')
         hLayout0 = QHBoxLayout()
         hLayout0.addWidget(self.chkBox_lowerlimit)
         hLayout0.setAlignment(self.chkBox_lowerlimit, Qt.AlignCenter)
@@ -808,6 +909,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.LowLimitPos, 0, widget0)
         # upper limit
         self.chkBox_upperlimit = QCheckBox()
+        self.chkBox_upperlimit.setObjectName('chkBoxUpperLimit')
         hLayout1 = QHBoxLayout()
         hLayout1.addWidget(self.chkBox_upperlimit)
         hLayout1.setAlignment(self.chkBox_upperlimit, Qt.AlignCenter)
@@ -816,6 +918,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.UpperLimitPos, 0, widget1)
         # unit
         self.chkBox_Unit = QCheckBox()
+        self.chkBox_Unit.setObjectName('chkBoxUnit')
         hLayout2 = QHBoxLayout()
         hLayout2.addWidget(self.chkBox_Unit)
         hLayout2.setAlignment(self.chkBox_Unit, Qt.AlignCenter)
@@ -826,8 +929,12 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.UnitPos, 2, self.cbox_Unit)
         self.cbox_Unit.addItems(['Bar', 'Psi'])
         self.cbox_Unit.setCurrentIndex(-1)
+        # set to not selectable
+        for item in range(self.cbox_Unit.count()):
+            self.cbox_Unit.setItemData(item, QVariant(0), Qt.ItemDataRole.UserRole - 1)
         # DAP
         self.chkBox_DAP = QCheckBox()
+        self.chkBox_DAP.setObjectName('chkBoxDAP')
         hLayout3 = QHBoxLayout()
         hLayout3.addWidget(self.chkBox_DAP)
         hLayout3.setAlignment(self.chkBox_DAP, Qt.AlignCenter)
@@ -836,6 +943,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.DAPPos, 0, widget3)
         # P-L
         self.chkBox_PL = QCheckBox()
+        self.chkBox_PL.setObjectName('chkBoxPL')
         hLayout4 = QHBoxLayout()
         hLayout4.addWidget(self.chkBox_PL)
         hLayout4.setAlignment(self.chkBox_PL, Qt.AlignCenter)
@@ -844,6 +952,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.PLPos, 0, widget4)
         # P-H
         self.chkBox_PH = QCheckBox()
+        self.chkBox_PH.setObjectName('chkBoxPH')
         hLayout5 = QHBoxLayout()
         hLayout5.addWidget(self.chkBox_PH)
         hLayout5.setAlignment(self.chkBox_PH, Qt.AlignCenter)
@@ -852,6 +961,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.PHPos, 0, widget5)
         # Func1
         self.chkBox_Func1 = QCheckBox()
+        self.chkBox_Func1.setObjectName('chkBoxFunc1')
         hLayout6 = QHBoxLayout()
         hLayout6.addWidget(self.chkBox_Func1)
         hLayout6.setAlignment(self.chkBox_Func1, Qt.AlignCenter)
@@ -862,8 +972,12 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.Func1Pos, 2, self.cbox_Func1)
         self.cbox_Func1.addItems(['LO', 'HI', 'WIN1', 'WIN2'])
         self.cbox_Func1.setCurrentIndex(-1)
+        # set to not selectable
+        for item in range(self.cbox_Func1.count()):
+            self.cbox_Func1.setItemData(item, QVariant(0), Qt.ItemDataRole.UserRole - 1)
         # AL1
         self.chkBox_AL1 = QCheckBox()
+        self.chkBox_AL1.setObjectName('chkBoxAL1')
         hLayout7 = QHBoxLayout()
         hLayout7.addWidget(self.chkBox_AL1)
         hLayout7.setAlignment(self.chkBox_AL1, Qt.AlignCenter)
@@ -872,6 +986,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.AL1Pos, 0, widget7)
         # AH1
         self.chkBox_AH1 = QCheckBox()
+        self.chkBox_AH1.setObjectName('chkBoxAH1')
         hLayout8 = QHBoxLayout()
         hLayout8.addWidget(self.chkBox_AH1)
         hLayout8.setAlignment(self.chkBox_AH1, Qt.AlignCenter)
@@ -880,6 +995,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.AH1Pos, 0, widget8)
         # DL1
         self.chkBox_DL1 = QCheckBox()
+        self.chkBox_DL1.setObjectName('chkBoxDL1')
         hLayout9 = QHBoxLayout()
         hLayout9.addWidget(self.chkBox_DL1)
         hLayout9.setAlignment(self.chkBox_DL1, Qt.AlignCenter)
@@ -888,6 +1004,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.DL1Pos, 0, widget9)
         # Func2
         self.chkBox_Func2 = QCheckBox()
+        self.chkBox_Func2.setObjectName('chkBoxFunc2')
         hLayout10 = QHBoxLayout()
         hLayout10.addWidget(self.chkBox_Func2)
         hLayout10.setAlignment(self.chkBox_Func2, Qt.AlignCenter)
@@ -898,8 +1015,12 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.Func2Pos, 2, self.cbox_Func2)
         self.cbox_Func2.addItems(['LO', 'HI', 'WIN1', 'WIN2'])
         self.cbox_Func2.setCurrentIndex(-1)
+        # set to not selectable
+        for item in range(self.cbox_Func2.count()):
+            self.cbox_Func2.setItemData(item, QVariant(0), Qt.ItemDataRole.UserRole - 1)
         # AL2
         self.chkBox_AL2 = QCheckBox()
+        self.chkBox_AL2.setObjectName('chkBoxAL2')
         hLayout11 = QHBoxLayout()
         hLayout11.addWidget(self.chkBox_AL2)
         hLayout11.setAlignment(self.chkBox_AL2, Qt.AlignCenter)
@@ -908,6 +1029,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.AL2Pos, 0, widget11)
         # AH2
         self.chkBox_AH2 = QCheckBox()
+        self.chkBox_AH2.setObjectName('chkBoxAH2')
         hLayout12 = QHBoxLayout()
         hLayout12.addWidget(self.chkBox_AH2)
         hLayout12.setAlignment(self.chkBox_AH2, Qt.AlignCenter)
@@ -916,12 +1038,28 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.tableWidget.setCellWidget(MainUI.AH2Pos, 0, widget12)
         # DL2
         self.chkBox_DL2 = QCheckBox()
+        self.chkBox_DL2.setObjectName('chkBoxDL2')
         hLayout13 = QHBoxLayout()
         hLayout13.addWidget(self.chkBox_DL2)
         hLayout13.setAlignment(self.chkBox_DL2, Qt.AlignCenter)
         widget13 = QWidget()
         widget13.setLayout(hLayout13)
         self.tableWidget.setCellWidget(MainUI.DL2Pos, 0, widget13)
+
+        self.chkBox_lowerlimit.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_upperlimit.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_Unit.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_DAP.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_PL.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_PH.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_Func1.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_AL1.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_AH1.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_DL1.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_Func2.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_AL2.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_AH2.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
+        self.chkBox_DL2.stateChanged.connect(self.chkBoxParamSelectedStateChanged)
 
     '''size (bytes)'''
     UpperLimitSize = 2
