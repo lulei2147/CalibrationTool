@@ -289,11 +289,17 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['LowLimit']['value'] = None
+                self.SendDataSetPara_A1['LowLimit']['decimal'] = None
         elif itemRow == MainUI.UpperLimitPos:
             dicVal = self.updateAndDispValue(text, MainUI.UpperLimitPos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['UpperLimit']['value'] = None
+                self.SendDataSetPara_A1['UpperLimit']['decimal'] = None
         elif itemRow == MainUI.UnitPos:
             pass
         elif itemRow == MainUI.DAPPos:
@@ -303,41 +309,65 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['P-L']['value'] = None
+                self.SendDataSetPara_A1['P-L']['decimal'] = None
         elif itemRow == MainUI.PHPos:
             dicVal = self.updateAndDispValue(text, MainUI.PHPos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['P-H']['value'] = None
+                self.SendDataSetPara_A1['P-H']['decimal'] = None
         elif itemRow == MainUI.AL1Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AL1Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AL1']['value'] = None
+                self.SendDataSetPara_A1['AL1']['decimal'] = None
         elif itemRow == MainUI.AH1Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AH1Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AH1']['value'] = None
+                self.SendDataSetPara_A1['AH1']['decimal'] = None
         elif itemRow == MainUI.DL1Pos:
             dicVal = self.updateAndDispValue(text, MainUI.DL1Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['DL1']['value'] = None
+                self.SendDataSetPara_A1['DL1']['decimal'] = None
         elif itemRow == MainUI.AL2Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AL2Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AL2']['value'] = None
+                self.SendDataSetPara_A1['AL2']['decimal'] = None
         elif itemRow == MainUI.AH2Pos:
             dicVal = self.updateAndDispValue(text, MainUI.AH2Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AH2']['value'] = None
+                self.SendDataSetPara_A1['AH2']['decimal'] = None
         elif itemRow == MainUI.DL2Pos:
             dicVal = self.updateAndDispValue(text, MainUI.DL2Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['DL2']['value'] = None
+                self.SendDataSetPara_A1['DL2']['decimal'] = None
         print(self.SendDataSetPara_A1)
 
     def setTextToTabWidget(self, row, col, str):
@@ -511,6 +541,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['LowLimit']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['LowLimit']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['LowLimit']['value'] = None
+                self.SendDataSetPara_A1['LowLimit']['decimal'] = None
 
             # upper limit
             upperLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['UpperLimit']['value'])[::-1])
@@ -530,6 +563,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['UpperLimit']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['UpperLimit']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['UpperLimit']['value'] = None
+                self.SendDataSetPara_A1['UpperLimit']['decimal'] = None
 
             # unit
             # b'00':PSI, b'01':BAR
@@ -544,6 +580,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
             dicVal = self.updateAndDispValue(text, MainUI.UnitPos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['Unit']['value'] = dicVal
+            else:
+                self.SendDataSetPara_A1['Unit']['value'] = None
 
             # DAP
             dap = self.RevDataLoadPara_A0['DAP']['value']
@@ -552,6 +590,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
             dicVal = self.updateAndDispValue(text, MainUI.DAPPos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['DAP']['value'] = dicVal
+            else:
+                self.SendDataSetPara_A1['DAP']['value'] = None
 
             # P-L
             PLVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-L']['value'])[::-1])
@@ -571,6 +611,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['P-L']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['P-L']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['P-L']['value'] = None
+                self.SendDataSetPara_A1['P-L']['decimal'] = None
 
             # P-H
             PHVal = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['P-H']['value'])[::-1])
@@ -588,6 +631,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['P-H']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['P-H']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['P-H']['value'] = None
+                self.SendDataSetPara_A1['P-H']['decimal'] = None
 
             # Func1
             Func1Val = self.RevDataLoadPara_A0['Func1']['value']
@@ -605,6 +651,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
             dicVal = self.updateAndDispValue(text, MainUI.Func1Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['Func1']['value'] = dicVal
+            else:
+                self.SendDataSetPara_A1['Func1']['value'] = None
 
             # AL1
             AL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL1']['value'])[::-1])
@@ -622,6 +670,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['AL1']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AL1']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AL1']['value'] = None
+                self.SendDataSetPara_A1['AL1']['decimal'] = None
 
             # AH1
             AH1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH1']['value'])[::-1])
@@ -641,6 +692,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['AH1']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AH1']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AH1']['value'] = None
+                self.SendDataSetPara_A1['AH1']['decimal'] = None
 
             # DL1
             DL1Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL1']['value'])[::-1])
@@ -660,6 +714,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['DL1']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['DL1']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['DL1']['value'] = None
+                self.SendDataSetPara_A1['DL1']['decimal'] = None
 
             # Func2
             Func2Val = self.RevDataLoadPara_A0['Func2']['value']
@@ -677,6 +734,8 @@ class MainUI(QMainWindow, Ui_MainWindow):
             dicVal = self.updateAndDispValue(text, MainUI.Func2Pos, MainUI.ParamColNum)
             if dicVal != None:
                 self.SendDataSetPara_A1['Func2']['value'] = dicVal
+            else:
+                self.SendDataSetPara_A1['Func2']['value'] = None
 
             # AL2
             AL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AL2']['value'])[::-1])
@@ -696,6 +755,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['AL2']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AL2']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AL2']['value'] = None
+                self.SendDataSetPara_A1['AL2']['decimal'] = None
 
             # AH2
             AH2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['AH2']['value'])[::-1])
@@ -713,6 +775,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['AH2']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['AH2']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['AH2']['value'] = None
+                self.SendDataSetPara_A1['AH2']['decimal'] = None
 
             # DL2
             DL2Val = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['DL2']['value'])[::-1])
@@ -732,6 +797,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
             if dicVal != None:
                 self.SendDataSetPara_A1['DL2']['value'] = dicVal['value']
                 self.SendDataSetPara_A1['DL2']['decimal'] = dicVal['decimal']
+            else:
+                self.SendDataSetPara_A1['DL2']['value'] = None
+                self.SendDataSetPara_A1['DL2']['decimal'] = None
 
             # parameter description
             self.setTextToTabWidget(MainUI.LowLimitPos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
@@ -764,98 +832,155 @@ class MainUI(QMainWindow, Ui_MainWindow):
         # bit0, lower limit
         if self.chkBox_lowerlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 0)
-            # setVal = setVal + (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big')
-        else:
-            setVal = setVal
+            if self.SendDataSetPara_A1['LowLimit']['value'] != None and self.SendDataSetPara_A1['LowLimit']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"测量范围下限\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit1, upper limit
         if self.chkBox_upperlimit.isChecked():
             bitMapLow = bitMapLow | (1 << 1)
-            # setVal = setVal + (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['UpperLimit']['value'] != None and self.SendDataSetPara_A1['UpperLimit']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"测量范围上线\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit2, unit
         if self.chkBox_Unit.isChecked():
             bitMapLow = bitMapLow | (1 << 2)
-            # setVal = setVal + self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['Unit']['value'] != None:
+                setVal = setVal + self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"单位\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit3, DAP
         if self.chkBox_DAP.isChecked():
             bitMapLow = bitMapLow | (1 << 3)
-            # setVal = setVal + self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['DAP']['value'] != None:
+                setVal = setVal + self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"DAP\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit4, P-L
         if self.chkBox_PL.isChecked():
             bitMapLow = bitMapLow | (1 << 4)
-            # setVal = setVal + (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['P-L']['value'] != None and self.SendDataSetPara_A1['P-L']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"P-L\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit5, P-H
         if self.chkBox_PH.isChecked():
             bitMapLow = bitMapLow | (1 << 5)
-            # setVal = setVal + (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['P-H']['value'] != None and self.SendDataSetPara_A1['P-H']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"P-H\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit6, Func1
         if self.chkBox_Func1.isChecked():
             bitMapLow = bitMapLow | (1 << 6)
-            # setVal = setVal + self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['Func1']['value'] != None:
+                setVal = setVal + self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"Func1\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit7, AL1
         if self.chkBox_AL1.isChecked():
             bitMapLow = bitMapLow | (1 << 7)
-            # setVal = setVal + (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['AL1']['value'] != None and self.SendDataSetPara_A1['AL1']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"AL1\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit8, AH1
         if self.chkBox_AH1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 0)
-            # setVal = setVal + (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['AH1']['value'] != None and self.SendDataSetPara_A1['AH1']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"AH1\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit9, DL1
         if self.chkBox_DL1.isChecked():
             bitMapHigh = bitMapHigh | (1 << 1)
-            # setVal = setVal + (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['DL1']['value'] != None and self.SendDataSetPara_A1['DL1']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"DL1\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit10, Func2
         if self.chkBox_Func2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 2)
-            # setVal = setVal + self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['Func2']['value'] != None:
+                setVal = setVal + self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"Func2\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit11, AL2
         if self.chkBox_AL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 3)
-            # setVal = setVal + (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['AL2']['value'] != None and self.SendDataSetPara_A1['AL2']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"AL2\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit12, AH2
         if self.chkBox_AH2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 4)
-            # setVal = setVal + (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['AH2']['value'] != None and self.SendDataSetPara_A1['AH2']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"AH2\"数据无效，请输入正确参数!" + '\n')
+                return
         # bit13, DL2
         if self.chkBox_DL2.isChecked():
             bitMapHigh = bitMapHigh | (1 << 5)
-            # setVal = setVal + (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + \
-            #          (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+            if self.SendDataSetPara_A1['DL2']['value'] != None and self.SendDataSetPara_A1['DL2']['decimal'] != None:
+                setVal = setVal + (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + \
+                         (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+            else:
+                self.pte_InfoOutput.insertPlainText("\"DL2\"数据无效，请输入正确参数!" + '\n')
+                return
 
-        if bitMapLow != 0 or bitMapHigh != 0:
-            setVal = int(self.CmdId['SetParam'], 16).to_bytes(1, byteorder='big') + \
-                     bitMapLow.to_bytes(1, byteorder='big') + \
-                     bitMapHigh.to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big') + \
-                     self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big') + \
-                     self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big') + \
-                     self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big') + \
-                     self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big') + \
-                     (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+        setVal = int(self.CmdId['SetParam'], 16).to_bytes(1, byteorder='big') + \
+                 bitMapLow.to_bytes(1, byteorder='big') + bitMapHigh.to_bytes(1, byteorder='big') + setVal
+        # if bitMapLow != 0 or bitMapHigh != 0:
+        #     setVal = int(self.CmdId['SetParam'], 16).to_bytes(1, byteorder='big') + \
+        #              bitMapLow.to_bytes(1, byteorder='big') + \
+        #              bitMapHigh.to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['LowLimit']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['LowLimit']['decimal']).to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['UpperLimit']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['UpperLimit']['decimal']).to_bytes(1, byteorder='big') + \
+        #              self.SendDataSetPara_A1['Unit']['value'].to_bytes(1, byteorder='big') + \
+        #              self.SendDataSetPara_A1['DAP']['value'].to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['P-L']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['P-L']['decimal']).to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['P-H']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['P-H']['decimal']).to_bytes(1, byteorder='big') + \
+        #              self.SendDataSetPara_A1['Func1']['value'].to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['AL1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL1']['decimal']).to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['AH1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH1']['decimal']).to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['DL1']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL1']['decimal']).to_bytes(1, byteorder='big') + \
+        #              self.SendDataSetPara_A1['Func2']['value'].to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['AL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AL2']['decimal']).to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['AH2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['AH2']['decimal']).to_bytes(1, byteorder='big') + \
+        #              (self.SendDataSetPara_A1['DL2']['value']).to_bytes(2, byteorder='big') + (self.SendDataSetPara_A1['DL2']['decimal']).to_bytes(1, byteorder='big')
+        #
+        #
+        #
+        #     print(setVal)
+        #     self.port.write(setVal)
+        # else:
+        #     self.pte_InfoOutput.insertPlainText('选择需要修改的参数！' + '\n')
 
-
-
-            print(setVal)
-            self.port.write(setVal)
-        else:
-            self.pte_InfoOutput.insertPlainText('选择需要修改的参数！' + '\n')
-
+        self.port.write(setVal)
         print(self.SendDataSetPara_A1)
         print(''.join('%02X,' % b for b in setVal))
 
