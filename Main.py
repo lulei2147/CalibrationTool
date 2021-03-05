@@ -165,6 +165,22 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.DL2DecimalIndexStart = self.DL2IndexEnd
         self.DL2DecimalIndexEnd = self.DL2DecimalIndexStart + MainUI.DL2DecimalSize * 2
 
+        # the size of load data
+        self.CmdA0Size = (MainUI.UpperLimitSize + MainUI.UpperLimitDecimalSize +
+                         MainUI.LowerLimitSize + MainUI.LowerLimitDecimalSize + \
+                         MainUI.UnitSize + \
+                         MainUI.DAPSize + \
+                         MainUI.PLSize + MainUI.PLDecimalSize + \
+                         MainUI.PHSize + MainUI.PHDecimalSize + \
+                         MainUI.Func1Size + \
+                         MainUI.AL1Size + MainUI.AL1DecimalSize + \
+                         MainUI.AH1Size + MainUI.AH1DecimalSize + \
+                         MainUI.DL1Size + MainUI.DL1DecimalSize + \
+                         MainUI.Func2Size + \
+                         MainUI.AL2Size + MainUI.AL2DecimalSize + \
+                         MainUI.AH2Size + MainUI.AH2DecimalSize + \
+                         MainUI.DL2Size + MainUI.DL2DecimalSize) * 2 + 3 * 2  # size('A0') + size('\r\n')
+
     def chkBoxParamSelectedStateChanged(self, status):
         chkBoxObj = self.sender()
         item = None
@@ -480,48 +496,47 @@ class MainUI(QMainWindow, Ui_MainWindow):
             rxData = binascii.b2a_hex(bytes(self.port.readAll()))
             self.dataBuffer = self.dataBuffer + rxData
 
-            if len(self.dataBuffer) >= 2:
-                # Wait for the data reception to complete, the byte stream ends with ‘\r\n’
+            # Wait for the data reception to complete, the byte stream ends with ‘\r\n’
+            if len(self.dataBuffer) == self.CmdA0Size:
+                print(self.dataBuffer)
+                self.RevData['CmdHeader'] = self.dataBuffer[0:2]
+                self.RevData['CmdData'] = self.dataBuffer[2:-4]
                 if self.dataBuffer[-2:] == b'0a' and self.dataBuffer[-4:-2] == b'0d':
-                    print(self.dataBuffer)
-                    self.RevData['CmdHeader'] = self.dataBuffer[0:2]
-                    self.RevData['CmdData'] = self.dataBuffer[2:-4]
-                    self.dataBuffer = b''
-
-                    self.RevDataLoadPara_A0['LowLimit']['value'] = self.RevData['CmdData'][self.LowerLimitIndexStart:self.LowerLimitIndexEnd]
-                    self.RevDataLoadPara_A0['LowLimit'] ['decimal']= self.RevData['CmdData'][self.LowerLimitDecimalIndexStart:self.LowerLimitDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['UpperLimit']['value'] = self.RevData['CmdData'][self.UpperLimitIndexStart:self.UpperLimitIndexEnd]
-                    self.RevDataLoadPara_A0['UpperLimit']['decimal'] = self.RevData['CmdData'][self.UpperLimitDecimalIndexStart:self.UpperLimitDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['Unit']['value'] = self.RevData['CmdData'][self.UnitIndexStart:self.UnitIndexEnd]
-                    self.RevDataLoadPara_A0['DAP']['value'] = self.RevData['CmdData'][self.DAPIndexStart:self.DAPIndexEnd]
-                    self.RevDataLoadPara_A0['P-L']['value'] = self.RevData['CmdData'][self.PLIndexStart:self.PLIndexEnd]
-                    self.RevDataLoadPara_A0['P-L']['decimal'] = self.RevData['CmdData'][self.PLDecimalIndexStart:self.PLDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['P-H']['value'] = self.RevData['CmdData'][self.PHIndexStart:self.PHIndexEnd]
-                    self.RevDataLoadPara_A0['P-H']['decimal'] = self.RevData['CmdData'][self.PHDecimalIndexStart:self.PHDecimalIndexEnd]
-                    self.RevDataLoadPara_A0['Func1']['value'] = self.RevData['CmdData'][self.Func1IndexStart:self.Func1IndexEnd]
-                    self.RevDataLoadPara_A0['AL1']['value'] = self.RevData['CmdData'][self.AL1IndexStart:self.AL1IndexEnd]
-                    self.RevDataLoadPara_A0['AL1']['decimal'] = self.RevData['CmdData'][self.AL1DecimalIndexStart:self.AL1DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['AH1']['value'] = self.RevData['CmdData'][self.AH1IndexStart:self.AH1IndexEnd]
-                    self.RevDataLoadPara_A0['AH1']['decimal'] = self.RevData['CmdData'][self.AH1DecimalIndexStart:self.AH1DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['DL1']['value'] = self.RevData['CmdData'][self.DL1IndexStart:self.DL1IndexEnd]
-                    self.RevDataLoadPara_A0['DL1']['decimal'] = self.RevData['CmdData'][self.DL1DecimalIndexStart:self.DL1DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['Func2']['value'] = self.RevData['CmdData'][self.Func2IndexStart:self.Func2IndexEnd]
-                    self.RevDataLoadPara_A0['AL2']['value'] = self.RevData['CmdData'][self.AL2IndexStart:self.AL2IndexEnd]
-                    self.RevDataLoadPara_A0['AL2']['decimal'] = self.RevData['CmdData'][self.AL2DecimalIndexStart:self.AL2DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['AH2']['value'] = self.RevData['CmdData'][self.AH2IndexStart:self.AH2IndexEnd]
-                    self.RevDataLoadPara_A0['AH2']['decimal'] = self.RevData['CmdData'][self.AH2DecimalIndexStart:self.AH2DecimalIndexEnd]
-                    self.RevDataLoadPara_A0['DL2']['value'] = self.RevData['CmdData'][self.DL2IndexStart:self.DL2IndexEnd]
-                    self.RevDataLoadPara_A0['DL2']['decimal'] = self.RevData['CmdData'][self.DL2DecimalIndexStart:self.DL2DecimalIndexEnd]
-
-                    self.cmdHandler()
+                    self.A0cmdHandler()
         except:
             pass
             # QMessageBox.critical(self, "错误", "串口接收数据错误！")
 
-    def cmdHandler(self):
+    def A0CmdHandler(self):
         # Load system data from MCU
         if self.RevData['CmdHeader'] == b'a0':
             text = ''
+            self.dataBuffer = b''
+
+            self.RevDataLoadPara_A0['LowLimit']['value'] = self.RevData['CmdData'][self.LowerLimitIndexStart:self.LowerLimitIndexEnd]
+            self.RevDataLoadPara_A0['LowLimit']['decimal'] = self.RevData['CmdData'][self.LowerLimitDecimalIndexStart:self.LowerLimitDecimalIndexEnd]
+            self.RevDataLoadPara_A0['UpperLimit']['value'] = self.RevData['CmdData'][self.UpperLimitIndexStart:self.UpperLimitIndexEnd]
+            self.RevDataLoadPara_A0['UpperLimit']['decimal'] = self.RevData['CmdData'][self.UpperLimitDecimalIndexStart:self.UpperLimitDecimalIndexEnd]
+            self.RevDataLoadPara_A0['Unit']['value'] = self.RevData['CmdData'][self.UnitIndexStart:self.UnitIndexEnd]
+            self.RevDataLoadPara_A0['DAP']['value'] = self.RevData['CmdData'][self.DAPIndexStart:self.DAPIndexEnd]
+            self.RevDataLoadPara_A0['P-L']['value'] = self.RevData['CmdData'][self.PLIndexStart:self.PLIndexEnd]
+            self.RevDataLoadPara_A0['P-L']['decimal'] = self.RevData['CmdData'][self.PLDecimalIndexStart:self.PLDecimalIndexEnd]
+            self.RevDataLoadPara_A0['P-H']['value'] = self.RevData['CmdData'][self.PHIndexStart:self.PHIndexEnd]
+            self.RevDataLoadPara_A0['P-H']['decimal'] = self.RevData['CmdData'][self.PHDecimalIndexStart:self.PHDecimalIndexEnd]
+            self.RevDataLoadPara_A0['Func1']['value'] = self.RevData['CmdData'][self.Func1IndexStart:self.Func1IndexEnd]
+            self.RevDataLoadPara_A0['AL1']['value'] = self.RevData['CmdData'][self.AL1IndexStart:self.AL1IndexEnd]
+            self.RevDataLoadPara_A0['AL1']['decimal'] = self.RevData['CmdData'][self.AL1DecimalIndexStart:self.AL1DecimalIndexEnd]
+            self.RevDataLoadPara_A0['AH1']['value'] = self.RevData['CmdData'][self.AH1IndexStart:self.AH1IndexEnd]
+            self.RevDataLoadPara_A0['AH1']['decimal'] = self.RevData['CmdData'][self.AH1DecimalIndexStart:self.AH1DecimalIndexEnd]
+            self.RevDataLoadPara_A0['DL1']['value'] = self.RevData['CmdData'][self.DL1IndexStart:self.DL1IndexEnd]
+            self.RevDataLoadPara_A0['DL1']['decimal'] = self.RevData['CmdData'][self.DL1DecimalIndexStart:self.DL1DecimalIndexEnd]
+            self.RevDataLoadPara_A0['Func2']['value'] = self.RevData['CmdData'][self.Func2IndexStart:self.Func2IndexEnd]
+            self.RevDataLoadPara_A0['AL2']['value'] = self.RevData['CmdData'][self.AL2IndexStart:self.AL2IndexEnd]
+            self.RevDataLoadPara_A0['AL2']['decimal'] = self.RevData['CmdData'][self.AL2DecimalIndexStart:self.AL2DecimalIndexEnd]
+            self.RevDataLoadPara_A0['AH2']['value'] = self.RevData['CmdData'][self.AH2IndexStart:self.AH2IndexEnd]
+            self.RevDataLoadPara_A0['AH2']['decimal'] = self.RevData['CmdData'][self.AH2DecimalIndexStart:self.AH2DecimalIndexEnd]
+            self.RevDataLoadPara_A0['DL2']['value'] = self.RevData['CmdData'][self.DL2IndexStart:self.DL2IndexEnd]
+            self.RevDataLoadPara_A0['DL2']['decimal'] = self.RevData['CmdData'][self.DL2DecimalIndexStart:self.DL2DecimalIndexEnd]
 
             # lower limit
             lowerLimit = binascii.hexlify(binascii.unhexlify(self.RevDataLoadPara_A0['LowLimit']['value'])[::-1])
