@@ -502,7 +502,7 @@ class MainUI(QMainWindow, Ui_MainWindow):
                 self.RevData['CmdHeader'] = self.dataBuffer[0:2]
                 self.RevData['CmdData'] = self.dataBuffer[2:-4]
                 if self.dataBuffer[-2:] == b'0a' and self.dataBuffer[-4:-2] == b'0d':
-                    self.A0cmdHandler()
+                    self.A0CmdHandler()
         except:
             pass
             # QMessageBox.critical(self, "错误", "串口接收数据错误！")
