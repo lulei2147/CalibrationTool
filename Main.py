@@ -197,6 +197,9 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.setTextToTabWidget(MainUI.AH2Pos, MainUI.ParamColNum, '')
         self.setTextToTabWidget(MainUI.DL2Pos, MainUI.ParamColNum, '')
 
+        # widget status
+        self.btn_setParam.setEnabled(False) # 1
+
     def chkBoxParamSelectedStateChanged(self, status):
         chkBoxObj = self.sender()
         item = None
@@ -254,17 +257,26 @@ class MainUI(QMainWindow, Ui_MainWindow):
             pass
 
         if item != None:
+            # 1 vvv
+            self.tableWidget.itemChanged.disconnect()
             if chkBoxObj.isChecked():
                 item.setFlags(item.flags() | QtCore.Qt.ItemIsEditable)
             else:
                 item.setFlags(item.flags() & (~QtCore.Qt.ItemIsEditable))
+            self.tableWidget.itemChanged.connect(self.tabWidgetIParamItemChanged)
+            # 1 ^^^
 
         # widget status
         if self.chkBox_lowerlimit.isChecked() or self.chkBox_upperlimit.isChecked() or self.chkBox_Unit.isChecked() or \
             self.chkBox_DAP.isChecked() or self.chkBox_PL.isChecked() or self.chkBox_PH.isChecked() or \
             self.chkBox_Func1.isChecked() or self.chkBox_AL1.isChecked() or self.chkBox_AH1.isChecked() or self.chkBox_DL1.isChecked() or \
             self.chkBox_Func2.isChecked() or self.chkBox_AL2.isChecked() or self.chkBox_AH2.isChecked() or self.chkBox_DL2.isChecked():
-            self.btn_setParam.setEnabled(True)
+            # 1 vvv
+            if self.port.isOpen():
+                self.btn_setParam.setEnabled(True)
+            else:
+                self.btn_setParam.setEnabled(False)
+            # 1 ^^^
         else:
             self.btn_setParam.setEnabled(False)
 
@@ -847,6 +859,29 @@ class MainUI(QMainWindow, Ui_MainWindow):
         self.setTextToTabWidget(MainUI.AL2Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
         self.setTextToTabWidget(MainUI.AH2Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
         self.setTextToTabWidget(MainUI.DL2Pos, MainUI.ParamDescColNum, 'float,int, [0, 9999]')
+
+        # 1 vvv
+        # widget status
+        # bug: cbox_X.isChecked -> open usart -> query parameters -> btn_setParam is not enabled
+        if self.btn_setParam.isEnabled() == False:
+            if self.chkBox_lowerlimit.isChecked() and self.tableWidget.item(MainUI.LowLimitPos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_upperlimit.isChecked() and self.tableWidget.item(MainUI.UpperLimitPos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_Unit.isChecked() and self.cbox_Unit.currentIndex() != -1 or \
+                self.chkBox_DAP.isChecked() and self.tableWidget.item(MainUI.DAPPos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_PL.isChecked() and self.tableWidget.item(MainUI.PLPos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_PH.isChecked() and self.tableWidget.item(MainUI.PHPos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_Func1.isChecked() and self.cbox_Func1.currentIndex() != -1 or \
+                self.chkBox_AL1.isChecked() and self.tableWidget.item(MainUI.AL1Pos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_AH1.isChecked() and self.tableWidget.item(MainUI.AH1Pos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_DL1.isChecked() and self.tableWidget.item(MainUI.DL1Pos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_Func2.isChecked() and self.cbox_Func2.currentIndex() != -1 or \
+                self.chkBox_AL2.isChecked() and self.tableWidget.item(MainUI.AL2Pos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_AH2.isChecked() and self.tableWidget.item(MainUI.AH2Pos, MainUI.ParamDescColNum).text() != '#Invalid' or \
+                self.chkBox_DL2.isChecked() and self.tableWidget.item(MainUI.DL2Pos, MainUI.ParamDescColNum).text() != '#Invalid':
+                self.btn_setParam.setEnabled(True)
+            else:
+                self.btn_setParam.setEnabled(False)
+        # 1 ^^^
 
     def btnRestoreFactoryClicked(self):
         if self.port.isOpen():
