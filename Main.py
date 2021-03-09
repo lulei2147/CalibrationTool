@@ -181,6 +181,22 @@ class MainUI(QMainWindow, Ui_MainWindow):
                          MainUI.AH2Size + MainUI.AH2DecimalSize + \
                          MainUI.DL2Size + MainUI.DL2DecimalSize) * 2 + 3 * 2  # size('A0') + size('\r\n')
 
+    def btnClearClicked(self):
+        self.setTextToTabWidget(MainUI.LowLimitPos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.UpperLimitPos, MainUI.ParamColNum, '')
+        self.cbox_Unit.setCurrentIndex(-1)
+        self.setTextToTabWidget(MainUI.DAPPos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.PLPos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.PHPos, MainUI.ParamColNum, '')
+        self.cbox_Func1.setCurrentIndex(-1)
+        self.setTextToTabWidget(MainUI.AL1Pos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.AH1Pos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.DL1Pos, MainUI.ParamColNum, '')
+        self.cbox_Func2.setCurrentIndex(-1)
+        self.setTextToTabWidget(MainUI.AL2Pos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.AH2Pos, MainUI.ParamColNum, '')
+        self.setTextToTabWidget(MainUI.DL2Pos, MainUI.ParamColNum, '')
+
     def chkBoxParamSelectedStateChanged(self, status):
         chkBoxObj = self.sender()
         item = None
